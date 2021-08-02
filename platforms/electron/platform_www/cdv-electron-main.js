@@ -20,7 +20,7 @@
 const fs = require('fs');
 require('better-logging')(console);
 console.logLevel = 4;
-const process = require("process")
+const process = require("process");
 // Module to control application life, browser window and tray.
 const { app, BrowserWindow } = require('electron');
 // Electron settings from .json file.
@@ -30,7 +30,11 @@ var document;
 global.sharedObject = {};
 try {
     console.info("Attempting to read file.");
-    document = fs.readFileSync(process.argv[1]).toString();
+    if(process.argv[1].endsWith(".xml")) {
+        document = fs.readFileSync(process.argv[1]).toString();
+    } else {
+        document = null;
+    }
 } catch {
     console.error("Document could not be opened.");
     document = null;
@@ -71,12 +75,17 @@ function createWindow () {
     if (cdvElectronSettings.browserWindow.webPreferences.devTools) {
         mainWindow.webContents.openDevTools();
     }
-
+    mainWindow.on('close', () => {
+        console.info("Closing the main window.");
+        console.info("Quitting the App.");
+        app.quit();
+    })
     // Emitted when the window is closed.
     mainWindow.on('closed', () => {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
+        console.info("Window is closed.");
         mainWindow = null;
     });
 }
@@ -87,24 +96,40 @@ function createWindow () {
 app.on('ready', createWindow);
 
 // Quit when all windows are closed.
-app.on('window-all-closed', () => {
-    console.debug("Attempting to close the app");
-    // On OS X it is common for applications and their menu bar
-    // to stay active until the user quits explicitly with Cmd + Q
-    if (process.platform !== 'darwin') {
-        app.quit();
-    }
-});
+// app.on('window-all-closed', () => {
+//     console.info("Attempting to close the app");
+//     // On OS X it is common for applications and their menu bar
+//     // to stay active until the user quits explicitly with Cmd + Q
+//     if (process.platform !== 'darwin') {
+//         app.quit();
+//     }
+// });
 app.on("close", () => {
+    console.info("Closing the app");
     mainWindow = null;
+})
+
+app.on("quit", () => {
+    console.info("Quitting apps");
 })
 app.on('activate', () => {
     // On OS X it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
+    console.info("Recreating window.");
     if (mainWindow === null) {
         createWindow();
     }
 });
 
+app.on("will-quit", () => {
+    console.info("App should quit now.");
+})
+
+app.on('window-all-closed', app.quit);
+app.on('before-quit', () => {
+    console.info("Before quit. Window should close.")
+    mainWindow.removeAllListeners('close');
+    mainWindow.close();
+});
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

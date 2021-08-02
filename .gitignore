@@ -9,4 +9,8 @@ node_modules/
 # /platforms/electron/build
 # /platforms/electron/build-res
 /platforms/electron/*
+/platforms/android/*
+/platforms/windows/*
+/platforms/browser/*
+/qtpy firmware/
 !/platforms/electron/platform_www/
