@@ -5,16 +5,17 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Snap!</title>
-    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport"
+        content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/TOCSearch.css">
-    
+
     <script type="text/javascript" src="js/FileSaver.min.js"></script>
     <script type="text/javascript" src="js/evebrain.js"></script>
     <script type="text/javascript" src="js/evebrain-save.js"></script>
     <script type="text/javascript" src="js/evebrain-app.js"></script>
     <script type="text/javascript" src="js/persist.js"></script>
-    
+
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -27,14 +28,19 @@
         <span class="connState"></span>
         <div id="save"></div>
         <div id="instructionsClick">
-            <div id="fourdotsbutton"><img src="img/4dots.svg" alt="menu"/></div>
-            <div id="logo"><img src="img/logo.svg" alt="Robot In A Can Snap!" style="height: 37px; padding: 6px 6px 6px 6px;"/></div>
+            <div id="fourdotsbutton"><img src="img/4dots.svg" alt="menu" /></div>
+            <div id="logo"><img src="img/logo.svg" alt="Robot In A Can Snap!"
+                    style="height: 37px; padding: 6px 6px 6px 6px;" /></div>
         </div>
         <div id="searchbar">
-            <a href="Extras/Guidebook.1.6.1.search.html" target="_blank"><img src="img/GuidebookIcon.svg" alt="Robot In A Can Snap!" style="display:inline; height: 28px; padding: 11px 11px 15px 11px;"/></a>
+            <a href="Extras/Guidebook.1.6.1.search.html" target="_blank"><img src="img/GuidebookIcon.svg"
+                    alt="Robot In A Can Snap!"
+                    style="display:inline; height: 28px; padding: 11px 11px 15px 11px;" /></a>
             <div class="form__field" style="display:inline;">
                 <div class="input__wrapper awesomplete-wrapper" style="display:inline;">
-                    <input id="toc-search" class="js-awesomplete js-input" type="search" aria-lablledby="toc-search__label" style="display:inline; width:300px; height:28px;" placeholder="Search Guidebook..." />
+                    <input id="toc-search" class="js-awesomplete js-input" type="search"
+                        aria-lablledby="toc-search__label" style="display:inline; width:300px; height:28px;"
+                        placeholder="Search Guidebook..." />
                 </div>
             </div>
         </div>
@@ -64,75 +70,103 @@
         <script type="text/javascript" src="js/Morejs/video.js?version=2019-06-27"></script>
         <script type="text/javascript" src="js/Morejs/maps.js?version=2019-06-27"></script>
         <script type="text/javascript">
+            const remote = require('electron').remote
+            var evebrain;
+            var world;
+            var openclose = 0;
 
-        var evebrain;
-        var world;
-        var openclose = 0;
+            //Autoconnect! Can be annoying!
+            if (localStorage.getItem("IP") != null) {
+                window.location = '#m=' + localStorage.getItem("IP");
+            } else {
+                window.location = '#m=' + '192.168.4.1';
+            }
 
-        //Autoconnect! Can be annoying!
-        if (localStorage.getItem("IP") != null) {
-            window.location = '#m=' + localStorage.getItem("IP");
-        } else {
-            window.location = '#m=' + '192.168.4.1';
-        }
-
-        var app = new EveBrainApp(function(m) {
-            evebrain = m;
-            m.version(function(status, msg) {
-                if (Number(msg.msg) < 20150201 && !localStorage['_warning_done_']) {
-                    localStorage['_warning_done_'] = true;
-                    alert("You'll need to update your eBrain firmware to use the addon blocks (bump and line following) in this app, but the other blocks should still work fine.");
-                }
+            var app = new EveBrainApp(function (m) {
+                evebrain = m;
+                m.version(function (status, msg) {
+                    if (Number(msg.msg) < 20150201 && !localStorage['_warning_done_']) {
+                        localStorage['_warning_done_'] = true;
+                        alert("You'll need to update your eBrain firmware to use the addon blocks (bump and line following) in this app, but the other blocks should still work fine.");
+                    }
+                });
             });
-        });
 
 
-        window.onload = function() {
-            IDE_Morph.prototype.reactToWorldResize = function(rect) {
-                if (this.isAutoFill) {
-                    rect.origin.y = document.getElementById('header').getBoundingClientRect().height;
-                    this.setPosition(rect.origin);
-                    this.setExtent(rect.extent());
+            window.onload = function () {
+                IDE_Morph.prototype.reactToWorldResize = function (rect) {
+                    if (this.isAutoFill) {
+                        rect.origin.y = document.getElementById('header').getBoundingClientRect().height;
+                        this.setPosition(rect.origin);
+                        this.setExtent(rect.extent());
+                    }
+                    if (this.filePicker) {
+                        document.body.removeChild(this.filePicker);
+                        this.filePicker = null;
+                    }
+                };
+
+                world = new WorldMorph(document.getElementById('world'));
+
+                world.worldCanvas.focus();
+                var IDE = new IDE_Morph()
+                IDE.openIn(world);
+
+                app.initPersistence({
+                    saveHandler: function (name) {
+                        IDE.setProjectName(name);
+                        return IDE.serializer.serialize(IDE.stage);
+                    },
+                    loadHandler: function (prog) {
+                        return IDE.rawOpenProjectString(prog);
+                    },
+                    clearHandler: function () {
+                        return IDE.newProject();
+                    }
+                });
+                if (remote.getGlobal('sharedObject').docString !== null) {
+                    loadFromString(remote.getGlobal('sharedObject').docString);
                 }
-                if (this.filePicker) {
-                    document.body.removeChild(this.filePicker);
-                    this.filePicker = null;
-                }
+                loop();
             };
 
-            world = new WorldMorph(document.getElementById('world'));
-
-            world.worldCanvas.focus();
-            var IDE = new IDE_Morph()
-            IDE.openIn(world);
-
-            app.initPersistence({
-                saveHandler: function(name) {
-                    IDE.setProjectName(name);
-                    return IDE.serializer.serialize(IDE.stage);
-                },
-                loadHandler: function(prog) {
-                    return IDE.rawOpenProjectString(prog);
-                },
-                clearHandler: function() {
-                    return IDE.newProject();
-                }
-            });
-
-            loop();
-        };
-
-        function loop() {
-            requestAnimationFrame(loop);
-            world.doOneCycle();
-        }
+            function loop() {
+                requestAnimationFrame(loop);
+                world.doOneCycle();
+            }
         </script>
         <canvas id="world" tabindex="1" style="position: absolute;" />
     </div>
     <script type="text/javascript">
-    [].forEach.call(document.links, function(l) {
-        l.href = l.href + document.location.hash;
-    });
+        [].forEach.call(document.links, function (l) {
+            l.href = l.href + document.location.hash;
+        });
+    </script>
+    <script>
+
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            // console.log(device.cordova);
+            // const remote = require('electron').remote;
+            console.log(remote.getGlobal('sharedObject'))
+        }
+        function loadFromString(string) {
+            world.children[0].openProjectString(string)
+        }
+        function onload() {
+            if (remote.getGlobal('sharedObject').docString !== null) {
+                loadFromString(remote.getGlobal('sharedObject').docString);
+            }
+        }
+        function loadFromURL(url) {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function () {
+                loadFromString(this.responseText)
+                // document.getElementById("demo").innerHTML = this.responseText;
+            }
+            xhttp.open("GET", url, true);
+            xhttp.send();
+        }
     </script>
     <script type="text/javascript" src="js/TOCSearch.js"></script>
 </body>
