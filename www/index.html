@@ -14,6 +14,7 @@
     <script type="text/javascript" src="js/evebrain-save.js"></script>
     <script type="text/javascript" src="js/evebrain-app.js"></script>
     <script type="text/javascript" src="js/persist.js"></script>
+    <script type="text/javascript" src="js/cordovajs/events.js"></script>
     
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
@@ -22,7 +23,7 @@
 
 
 
-<body>
+<body onload="onLoad()">
     <div id="header">
         <span class="connState"></span>
         <div id="save"></div>
@@ -40,7 +41,7 @@
         </div>
     </div>
 
-    <div id="app">
+    <div id="eApp">
         <script type="text/javascript" src="js/Morejs/morphic.js"></script>
         <script type="text/javascript" src="js/Morejs/widgets.js"></script>
         <script type="text/javascript" src="js/Morejs/blocks.js"></script>
@@ -64,7 +65,7 @@
         <script type="text/javascript" src="js/Morejs/video.js?version=2019-06-27"></script>
         <script type="text/javascript" src="js/Morejs/maps.js?version=2019-06-27"></script>
         <script type="text/javascript">
-
+        
         var evebrain;
         var world;
         var openclose = 0;
@@ -76,7 +77,7 @@
             window.location = '#m=' + '192.168.4.1';
         }
 
-        var app = new EveBrainApp(function(m) {
+        var eApp = new EveBrainApp(function(m) {
             evebrain = m;
             m.version(function(status, msg) {
                 if (Number(msg.msg) < 20150201 && !localStorage['_warning_done_']) {
@@ -106,7 +107,7 @@
             var IDE = new IDE_Morph()
             IDE.openIn(world);
 
-            app.initPersistence({
+            eApp.initPersistence({
                 saveHandler: function(name) {
                     IDE.setProjectName(name);
                     return IDE.serializer.serialize(IDE.stage);
@@ -126,6 +127,13 @@
             requestAnimationFrame(loop);
             world.doOneCycle();
         }
+        function displayContents(err, text) {
+            if (err) {
+                console.error(err);
+            } else {
+                alert(text);
+            }
+        }
         </script>
         <canvas id="world" tabindex="1" style="position: absolute;" />
     </div>
@@ -135,6 +143,9 @@
     });
     </script>
     <script type="text/javascript" src="js/TOCSearch.js"></script>
+    <script>
+        
+    </script>
 </body>
 
 </html>

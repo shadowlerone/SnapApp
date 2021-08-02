@@ -16,16 +16,28 @@
     "cordova-android": "^9.1.0",
     "cordova-browser": "^6.0.0",
     "cordova-electron": "^1.1.1",
-    "cordova-plugin-whitelist": "^1.3.5"
+    "cordova-file-association": "^1.0.0",
+    "cordova-plugin-device": "^2.0.3",
+    "cordova-plugin-openwith-ios": "^2.0.0",
+    "cordova-plugin-qrscanner": "^3.0.1",
+    "cordova-plugin-whitelist": "^1.3.5",
+    "cordova-windows": "^7.0.1"
   },
   "cordova": {
     "plugins": {
-      "cordova-plugin-whitelist": {}
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-openwith-ios": {
+        "IOS_URL_SCHEME": "cordovaopenwithdemo"
+      },
+      "cordova-plugin-device": {},
+      "cordova-plugin-qrscanner": {}
     },
     "platforms": [
       "browser",
       "android",
-      "electron"
+      "electron",
+      "windows"
     ]
-  }
+  },
+  "dependencies": {}
 }
