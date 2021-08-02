@@ -1,19 +1,33 @@
+require('better-logging')(console);
 const fse = require('fs-extra');
 const process = require("process");
 const path = require('path')
+const package = require("./package.json");
+var platforms;
 
-const platforms = process.argv.slice(2);
-console.log(platforms);
 
-if (platforms === []) {
-
+if (process.argv.slice(2).length == 0) {
+	platforms = package.cordova.platforms;
 } else {
+	platforms = process.argv.slice(2);
+}
+
+platforms.forEach((p) => {
+	fse.copy(path.join('./', 'platform_specific', p), path.join('./', 'platforms', p))
+		.then(() => console.log(`Successfully copied: ${p}`))
+		.catch(err => console.error(err))
+})
+
+console.log("Hi!");
+
+module.exports = function (context) {
+	console.log(context)
+	var platforms = context.opts.platforms;
 	platforms.forEach((p) => {
-		console.log(path.join('./', 'platform_specific', p))
-		console.log(path.join('./', 'platforms', p))
-		fse.copy(path.join('./', 'platform_specific', p), path.join('./', 'platforms', p), {overwrite: true})
-			.then(() => console.log(`Successfully copied: ${p}`))
-			.catch(err => console.error(err))
+		try {
+			fse.copySync(path.join('./', 'platform_specific', p), path.join('./', 'platforms', p))
+		} catch (err){
+			console.error(err)
+		}
 	})
 }
-console.log("Hi!");
