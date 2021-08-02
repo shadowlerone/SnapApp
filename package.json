@@ -27,5 +27,8 @@
       "android",
       "electron"
     ]
+  },
+  "dependencies": {
+    "better-logging": "^4.5.0"
   }
 }
