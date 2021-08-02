@@ -5,7 +5,8 @@
   "description": "A sample Apache Cordova application that responds to the deviceready event.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "electron-setup": "cordova platform add electron & node utility.js electron"
   },
   "keywords": [
     "ecosystem:cordova"
@@ -29,6 +30,7 @@
     ]
   },
   "dependencies": {
-    "better-logging": "^4.5.0"
+    "better-logging": "^4.5.0",
+    "fs-extra": "^10.0.0"
   }
 }
