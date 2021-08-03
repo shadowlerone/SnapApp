@@ -72,7 +72,9 @@
         <script type="text/javascript">
             const { ipcRenderer } = require('electron');
             ipcRenderer.on('loadDocument', (event, arg) => {
-                loadFromString(arg);
+                console.info("Document received.");
+                try {loadFromString(arg);} catch (err) {console.error(err)}
+                
             })
             
             var evebrain;
@@ -131,7 +133,8 @@
                 // if (remote.getGlobal('sharedObject').docString !== null) {
                 //     loadFromString(remote.getGlobal('sharedObject').docString);
                 // }
-                ipcRenderer.send('world-ready')
+                console.info("World is ready for loading a document.");
+                ipcRenderer.send('world-ready');
                 loop();
             };
 
@@ -157,12 +160,8 @@
             console.log(remote.getGlobal('sharedObject'))
         }
         function loadFromString(string) {
-            world.children[0].openProjectString(string)
-        }
-        function onload() {
-            if (remote.getGlobal('sharedObject').docString !== null) {
-                loadFromString(remote.getGlobal('sharedObject').docString);
-            }
+            console.info("Loading Document.");
+            world.children[0].openProjectString(string);
         }
         function loadFromURL(url) {
             const xhttp = new XMLHttpRequest();

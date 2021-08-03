@@ -34,22 +34,26 @@ const {
 let document;
 // if ()
 try {
-    console.info("Attempting to read file.");
-    if(process.argv[process.argv.lenth - 1].endsWith(".xml")) {
+    console.info("Attempting to read document.");
+    if(process.argv[1].endsWith(".xml")) {
+        console.info("Document successfully opened.");
         document = fs.readFileSync(process.argv[1]).toString();
     } else {
+        console.error("Document isn't a valid file type.");
         document = null;
     }
 } catch {
-    console.error("Document could not be opened.");
+    console.error("An error occured while trying to open the document.");
     document = null;
 }
 
 ipcMain.on('world-ready', (event, arg) => {
     console.info("World is ready.");
-    console.info("Sending Document.");
     if (document !== null) {
-        event.reply(document);
+        console.info("Sending Document.");
+        event.reply("loadDocument",document);
+    } else {
+        console.info("Document is null, not sending document.")
     }
 })
 
@@ -154,7 +158,10 @@ app.on('ready', () => {
 app.on('window-all-closed', () => {
     // On OS X it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
+    console.info("App will close unless platform is darwin.")
+    console.info("Platform is:", process.platform)
     if (process.platform !== 'darwin') {
+        console.info("App is now closing.");
         app.quit();
     }
 });

@@ -22,10 +22,11 @@ if (typeof require !== 'undefined' && require.main === module) {
 }
 
 
-console.log("Hi!");
+console.info("Hi!");
 
 module.exports = function (context) {
 	var platforms = context.opts.platforms;
+	console.info("Moving files for", context.opts.platforms.join(', '));
 	platforms.forEach((p) => {
 		try {
 			fse.copySync(path.join('./', 'platform_specific', p), path.join('./', 'platforms', p))
@@ -34,3 +35,5 @@ module.exports = function (context) {
 		}
 	})
 }
+
+console.info("I'm done here! Rock on and have a nice day!");
