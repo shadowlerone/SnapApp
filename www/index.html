@@ -70,7 +70,11 @@
         <script type="text/javascript" src="js/Morejs/video.js?version=2019-06-27"></script>
         <script type="text/javascript" src="js/Morejs/maps.js?version=2019-06-27"></script>
         <script type="text/javascript">
-            const remote = require('electron').remote
+            const { ipcRenderer } = require('electron');
+            ipcRenderer.on('loadDocument', (event, arg) => {
+                loadFromString(arg);
+            })
+            
             var evebrain;
             var world;
             var openclose = 0;
@@ -124,9 +128,10 @@
                         return IDE.newProject();
                     }
                 });
-                if (remote.getGlobal('sharedObject').docString !== null) {
-                    loadFromString(remote.getGlobal('sharedObject').docString);
-                }
+                // if (remote.getGlobal('sharedObject').docString !== null) {
+                //     loadFromString(remote.getGlobal('sharedObject').docString);
+                // }
+                ipcRenderer.send('world-ready')
                 loop();
             };
 
@@ -134,6 +139,7 @@
                 requestAnimationFrame(loop);
                 world.doOneCycle();
             }
+        // ipcRenderer.
         </script>
         <canvas id="world" tabindex="1" style="position: absolute;" />
     </div>

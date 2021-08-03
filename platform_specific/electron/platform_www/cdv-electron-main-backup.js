@@ -18,24 +18,30 @@
 */
 
 const fs = require('fs');
-const path = require('path');
 require('better-logging')(console);
 console.logLevel = 4;
 const process = require("process");
+// Module to control application life, browser window and tray.
 
+
+const fs = require('fs');
+const path = require('path');
 // Module to control application life, browser window and tray.
 const {
     app,
     BrowserWindow,
-    protocol,
-	ipcMain
+    protocol
 } = require('electron');
+const { app, BrowserWindow } = require('electron');
+// Electron settings from .json file.
+const cdvElectronSettings = require('./cdv-electron-settings.json');
 
-let document;
-// if ()
+// console.group("Document Opening.");
+var document;
+global.sharedObject = {};
 try {
     console.info("Attempting to read file.");
-    if(process.argv[process.argv.lenth - 1].endsWith(".xml")) {
+    if(process.argv[1].endsWith(".xml")) {
         document = fs.readFileSync(process.argv[1]).toString();
     } else {
         document = null;
@@ -43,44 +49,13 @@ try {
 } catch {
     console.error("Document could not be opened.");
     document = null;
+} finally {
+    console.info("Passing info to render app.")
+    // console.debug(typeof document);
+    // console.debug(document);
+    global.sharedObject.docString = document;
 }
-
-ipcMain.on('world-ready', (event, arg) => {
-    console.info("World is ready.");
-    console.info("Sending Document.");
-    if (document !== null) {
-        event.reply(document);
-    }
-})
-
-// Electron settings from .json file.
-const cdvElectronSettings = require('./cdv-electron-settings.json');
-const reservedScheme = require('./cdv-reserved-scheme.json');
-
-const devTools = cdvElectronSettings.browserWindow.webPreferences.devTools
-    ? require('electron-devtools-installer')
-    : false;
-
-const scheme = cdvElectronSettings.scheme;
-const hostname = cdvElectronSettings.hostname;
-const isFileProtocol = scheme === 'file';
-
-/**
- * The base url path.
- * E.g:
- * When scheme is defined as "file" the base path is "file://path-to-the-app-root-directory"
- * When scheme is anything except "file", for example "app", the base path will be "app://localhost"
- *  The hostname "localhost" can be changed but only set when scheme is not "file"
- */
-const basePath = (() => isFileProtocol ? `file://${__dirname}` : `${scheme}://${hostname}`)();
-
-if (reservedScheme.includes(scheme)) throw new Error(`The scheme "${scheme}" can not be registered. Please use a non-reserved scheme.`);
-
-if (!isFileProtocol) {
-    protocol.registerSchemesAsPrivileged([
-        { scheme, privileges: { standard: true, secure: true } }
-    ]);
-}
+// console.groupEnd();
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -88,6 +63,9 @@ let mainWindow;
 
 function createWindow () {
     // Create the browser window.
+    // console.group("Window Creation");
+    console.info("Creating Window.");
+    console.log("Setting mainWindow icon.")
     let appIcon;
     if (fs.existsSync(`${__dirname}/img/app.png`)) {
         appIcon = `${__dirname}/img/app.png`;
@@ -96,80 +74,87 @@ function createWindow () {
     } else {
         appIcon = `${__dirname}/img/logo.png`;
     }
-
+    console.info("Creating browser window object.");
     const browserWindowOpts = Object.assign({}, cdvElectronSettings.browserWindow, { icon: appIcon });
     mainWindow = new BrowserWindow(browserWindowOpts);
-
-    // Load a local HTML file or a remote URL.
-    const cdvUrl = cdvElectronSettings.browserWindowInstance.loadURL.url;
-    const loadUrl = cdvUrl.includes('://') ? cdvUrl : `${basePath}/${cdvUrl}`;
-    const loadUrlOpts = Object.assign({}, cdvElectronSettings.browserWindowInstance.loadURL.options);
-
-    mainWindow.loadURL(loadUrl, loadUrlOpts);
+    
+    // and load the index.html of the app.
+    // TODO: possibly get this data from config.xml
+    console.info("Loading window from URL");
+    mainWindow.loadURL(`file://${__dirname}/index.html`);
+    mainWindow.webContents.on('did-finish-load', function () {
+        mainWindow.webContents.send('window-id', mainWindow.id);
+    });
 
     // Open the DevTools.
     if (cdvElectronSettings.browserWindow.webPreferences.devTools) {
+        console.debug("Opening DevTools");
         mainWindow.webContents.openDevTools();
     }
-
+    mainWindow.on('close', () => {
+        console.info("Closing the main window.");
+        console.trace();
+        // console.info("Quitting the App.");
+        app.quit();
+    })
     // Emitted when the window is closed.
     mainWindow.on('closed', () => {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
+        console.info("Window is closed.");
         mainWindow = null;
     });
-}
-
-function configureProtocol () {
-    protocol.registerFileProtocol(scheme, (request, cb) => {
-        const url = request.url.substr(basePath.length + 1);
-        cb({ path: path.normalize(`${__dirname}/${url}`) });
-    });
-
-    protocol.interceptFileProtocol('file', (_, cb) => { cb(null); });
+    // console.groupEnd();
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', () => {
-    if (!isFileProtocol) {
-        configureProtocol();
-    }
-
-    if (devTools && cdvElectronSettings.devToolsExtension) {
-        const extensions = cdvElectronSettings.devToolsExtension.map(id => devTools[id] || id);
-        devTools.default(extensions) // default = install extension
-            .then((name) => console.log(`Added Extension:  ${name}`))
-            .catch((err) => console.log('An error occurred: ', err));
-    }
-
-    createWindow();
-	
-	// mainWindow.webContents.send('document', document);
-});
+app.on('ready', createWindow);
 
 // Quit when all windows are closed.
-app.on('window-all-closed', () => {
-    // On OS X it is common for applications and their menu bar
-    // to stay active until the user quits explicitly with Cmd + Q
-    if (process.platform !== 'darwin') {
-        app.quit();
-    }
-});
+// app.on('window-all-closed', () => {
+//     console.info("Attempting to close the app");
+//     // On OS X it is common for applications and their menu bar
+//     // to stay active until the user quits explicitly with Cmd + Q
+//     if (process.platform !== 'darwin') {
+//         app.quit();
+//     }
+// });
+app.on("close", (e) => {
+    console.info("Closing the app");
+    console.debug(e);
+    // mainWindow = null;
+})
 
+app.on("quit", () => {
+    console.info("Quitting apps");
+})
 app.on('activate', () => {
     // On OS X it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
+    console.info("Recreating window.");
     if (mainWindow === null) {
-        if (!isFileProtocol) {
-            configureProtocol();
-        }
-
         createWindow();
     }
 });
 
+app.on("will-quit", () => {
+
+    console.info("App should quit now.");
+    console.trace();
+})
+
+app.on('window-all-closed', app.quit);
+app.on('before-quit', (e) => {
+    // console.group("Before Quit Event");
+    console.info("Before quit. Window should close.");
+    console.debug(e);
+    console.trace();
+    mainWindow.removeAllListeners('close');
+    mainWindow.close();
+    // console.groupEnd();
+});
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

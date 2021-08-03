@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "electron-setup": "cordova platform add electron & node utility.js electron"
+    "electron-setup": "cordova platform add electron@2.0.0 & node utility.js electron"
   },
   "keywords": [
     "ecosystem:cordova"
@@ -16,7 +16,7 @@
   "devDependencies": {
     "cordova-android": "^9.1.0",
     "cordova-browser": "^6.0.0",
-    "cordova-electron": "^1.1.1",
+    "cordova-electron": "^2.0.0",
     "cordova-plugin-whitelist": "^1.3.5"
   },
   "cordova": {
