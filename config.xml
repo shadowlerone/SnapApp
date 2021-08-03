@@ -26,7 +26,7 @@
     </platform>
     <platform name="electron">
         <preference name="ElectronSettingsFilePath" value="res/electron/settings.json" />
-        <hook type="before_build" src="./utility.js"/>
+        <!-- <hook type="before_build" src="./utility.js"/> -->
     </platform>
 
 </widget>
