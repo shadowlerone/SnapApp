@@ -1,7 +1,7 @@
 var Persister = function(conf){
   var self = this;
   this.namespace = window.location.pathname.replace(/\//g, '')
-  window.addEventListener('beforeunload', function(){return self.handleUnload();});
+  // window.addEventListener('beforeunload', function(){return self.handleUnload();});
   if(conf.saveHandler && typeof conf.saveHandler === 'function' && conf.loadHandler && typeof conf.loadHandler === 'function'){
     this.saveHandler = conf.saveHandler;
     this.loadHandler = conf.loadHandler;
