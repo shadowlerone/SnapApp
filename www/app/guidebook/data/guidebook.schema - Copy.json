@@ -1,0 +1,233 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "type": "object",
+    "properties": {
+        "items": {
+            "type": "object",
+            "properties": {
+                "chapters": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "cover_page": {
+                                "type": "object",
+                                "properties": {
+                                    "background_image": {
+                                        "type": "string"
+                                    },
+                                    "columns": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "style": {
+                                                    "type": "string"
+                                                },
+                                                "subtitle": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "style",
+                                                "subtitle"
+                                            ]
+                                        }
+                                    },
+                                    "comment": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "background_image",
+                                    "columns",
+                                    "comment",
+                                    "type"
+                                ]
+                            },
+                            "table_of_contents": {
+                                "type": "object",
+                                "properties": {
+                                    "columns": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "body": {
+                                                    "type": "string"
+                                                },
+                                                "title": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "body",
+                                                "title"
+                                            ]
+                                        }
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "columns",
+                                    "type"
+                                ]
+                            },
+                            "inner_cover": {
+                                "type": "object",
+                                "properties": {
+                                    "columns": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "subtitle": {
+                                                    "type": "string"
+                                                },
+                                                "title": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "subtitle",
+                                                "title"
+                                            ]
+                                        }
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "columns",
+                                    "type"
+                                ]
+                            },
+                            "whats_in_the_can": {
+                                "type": "object",
+                                "properties": {
+                                    "columns": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "image": {
+                                                    "type": "string"
+                                                },
+                                                "nerd_alert": {
+                                                    "type": "string"
+                                                },
+                                                "style": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "image",
+                                                "nerd_alert",
+                                                "style"
+                                            ]
+                                        }
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "columns",
+                                    "type"
+                                ]
+                            },
+                            "part_of_the_eBrain": {
+                                "type": "object",
+                                "properties": {
+                                    "columns": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "image": {
+                                                    "type": "string"
+                                                },
+                                                "nerd_alert": {
+                                                    "type": "string"
+                                                },
+                                                "style": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "image",
+                                                "nerd_alert",
+                                                "style"
+                                            ]
+                                        }
+                                    },
+                                    "comment": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "columns",
+                                    "comment",
+                                    "type"
+                                ]
+                            },
+                            "preface": {
+                                "type": "object",
+                                "properties": {
+                                    "columns": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "body": {
+                                                    "type": "string"
+                                                },
+                                                "title": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "body",
+                                                "title"
+                                            ]
+                                        }
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "columns",
+                                    "type"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "cover_page",
+                            "table_of_contents",
+                            "inner_cover",
+                            "whats_in_the_can",
+                            "part_of_the_eBrain",
+                            "preface"
+                        ]
+                    }
+                }
+            },
+            "required": [
+                "chapters"
+            ]
+        }
+    },
+    "required": [
+        "items"
+    ]
+}

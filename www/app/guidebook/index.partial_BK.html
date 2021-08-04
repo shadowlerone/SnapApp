@@ -1,0 +1,61 @@
+<div class="section workspace">
+  <div id="app">
+    <div id="pages" class="main">
+      <div id="v-for-chapters">
+        <div v-for="(chapter,chapter_number) in chapters">
+          <div :id="'chapter_' + chapter_number">
+
+            <div v-for="(page,index) in chapter" class="paper">
+
+              <section :id="index" :class="page.type" :style="[ page.background_image ? { backgroundImage : 'url(\'./imgs/' + page.background_image + '\')' }: false ]">
+                <div v-if="page.type.includes('basics')" class="page_type"><img src="imgs/svg/basic_type.svg"/></div>
+                <div v-if="page.type.includes('activity')" class="page_type"><img src="imgs/svg/activity_type.svg"/></div>
+                <div v-if="page.type.includes('reference')" class="page_type"><img src="imgs/svg/reference_type.svg"/></div>
+                <div class="branding"><img src="imgs/svg/Robotype.svg"/></div>
+                <div class="container">
+                  <div class="columns">
+                    <div v-for="column in page.columns" class="column" :style="column.style">
+                      <h1 v-if="column.title">
+
+                        <input v-show="column.title_editing == true"
+                        v-model="column.title" v-on:blur="column.title_editing = false; $emit('update')"
+                        @keyup.enter="column.title_editing = false; $emit('update')">
+
+                        <span v-show="column.title_editing !== true" @dblclick="column.title_editing = true"> 
+                          {{ column.title}}
+                        </span>
+                      </h1>
+
+                      <h2 v-if="column.subtitle" class="coversubtitle"> {{ column.subtitle }} </h2>
+                      <img v-if="column.logo" :src="'./imgs/' + column.logo"  class="logo">
+                      <img v-if="column.image" :src="'./imgs/' + column.image">
+                      <p v-if="column.body"> {{ column.body }} </p>
+                      <ol v-if="column.list">
+                        <li v-for="item in column.list">
+                          {{ item.body }}
+                        </li>
+                      </ol>
+                      <h4 v-if="column.message"> {{column.message }} </h4>
+                      <p v-if="column.fun_fact"> Fun fact: {{column.fun_fact }} </p>
+                      <p v-if="column.troubleshooting"> Troubleshooting: {{column.troubleshooting }} </p>
+                      <p v-if="column.nerd_alert"> Did you know: {{column.nerd_alert }} </p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ul id="pagination">
+    <li><a href="#page1"></a></li>
+    <li><a href="#page2"></a></li>
+    <li><a href="#page3"></a></li>
+    <li><a href="#page4"></a></li>
+    <li><a href="#page5"></a></li>
+  </ul>
+</div>

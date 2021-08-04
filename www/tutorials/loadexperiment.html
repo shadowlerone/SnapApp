@@ -1,0 +1,61 @@
+<html>
+
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for HTML5 for Linux version 5.2.0">
+  <style>
+    html{height:100%} body{margin:0;height:100%} iframe {width:100%;height:100%; border-width:0}
+  </style>
+  <title>Robot in a Can Snap!</title>
+  <link rel="manifest" href="./manifest.json">
+</head>
+
+<body>
+  <label for="progress">Lesson progress:</label>
+  <progress id="progress" value="0" max="100"> 0% </progress>
+  <button type="button" onclick="next()">Next Step</button>
+  <button type="button" onclick="previous()">Previous Step</button>
+  <iframe src="./Snap.html#m=192.168.4.1" scrolling="no" class="iframe-clipped" id="snapFrame" project_path="app/Snap_Projects/Lesson1.xml"></iframe>
+  <script src="./app.js"></script>
+
+  <script> 
+    var progress = 0;
+    const projects = ["app/Snap_Projects/lesson1.xml","app/Snap_Projects/angles.xml","app/Snap_Projects/distance.xml","app/Snap_Projects/drawAngle.xml","app/Snap_Projects/loops.xml","/app/Snap_Projects/squaretutorial.xml"];
+    var total = projects.length;
+    document.getElementById("progress").value = (progress/total) * 100;
+    progress += 1;
+
+    function changeprogect(path) {
+      document.getElementById("snapFrame").setAttribute("project_path",  path); 
+      document.getElementById('snapFrame').contentWindow.location.reload();
+      document.getElementById("progress").value = (progress/(total-1)) * 100;
+    }
+
+    function next(){
+      changeprogect(projects[progress]);
+      progress += 1;
+
+      if (progress >= total) {
+        progress = 0;
+      }
+      
+      
+    }
+
+    function previous(){
+      changeprogect(projects[progress]);
+      progress -= 1;
+
+      if (progress == total) {
+        progress = 0;
+      }
+      if (progress < 0) {
+        progress = 0;
+      }
+      
+
+    }
+  </script>
+  
+</body>
+</html>

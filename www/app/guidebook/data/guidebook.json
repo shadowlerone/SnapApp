@@ -1,0 +1,541 @@
+{
+	"items": {
+		"chapters": [
+			{
+				"cover_page": {
+					"background_image": "Robot_Steam_BG_16x9.small.jpg",
+					"columns": [
+						{
+							"style": "align-self: flex-end; font-size: 0.8em;",
+							"subtitle": "Guidebook 4.0"
+						},
+						{
+							"style": "flex-grow: 2;",
+							"logo": "./imgs/PrimaryLogo.svg"
+						},
+						{}
+					],
+					"comment": "Super Power! Warning about batteries not included",
+					"type": "title cover"
+				},
+				"table_of_contents": {
+					"columns": [
+						{
+							"body": "What’s in the can?Chapter 1 - Getting familiar with you eBrainChapter 2 - Your first robotChapter 3 - Programming and moving your robot",
+							"title": "Table Of Contents"
+						}
+					],
+					"type": "content"
+				},
+				"inner_cover": {
+					"columns": [
+						{
+							"subtitle": "Quick to set up and easy to use, start exploring the world of technology today!",
+							"title": "Designed for exploration"
+						},
+						{
+							"body": "This workbook contains a series of exercises that will introduce you to the Robot in a Can!It will help you  on your way to adventuring and building robots! You can follow the suggested curriculum or skip ahead if you prefer.",
+							"message": "Fasten your space seatbelts and lets launch!"
+						}
+					],
+					"type": "content"
+				},
+				"whats_in_the_can": {
+					"columns": [
+						{
+							"image": "WhatsInTheCan.svg",
+							"nerd_alert": "The eBrain is a powerful microcontroller with tons of features that are normally add ons! Jump to the next page to learn more.",
+							"style": "flex-grow: 2;"
+						},
+						{
+							"list": [
+								{
+									"body": "1x eBrain"
+								},
+								{
+									"body": "2x motors"
+								},
+								{
+									"body": "4x motor holders"
+								},
+								{
+									"body": "2x robot body"
+								},
+								{
+									"body": "2x chassis"
+								},
+								{
+									"body": "2x wheels"
+								},
+								{
+									"body": "30x Cables"
+								},
+								{
+									"body": "1x Battery pack"
+								},
+								{
+									"body": "1x Potentiometer"
+								},
+								{
+									"body": "2x Bulldog clip"
+								},
+								{
+									"body": "1x Distance sensor"
+								},
+								{
+									"body": "3x LED"
+								}
+							],
+							"title": "What's In The Can?"
+						}
+					],
+					"type": "content basics materials"
+				},
+				"part_of_the_eBrain": {
+					"columns": [
+						{
+							"image": "WhatsOnTheBoard.svg",
+							"style": "flex-grow: 2;"
+						},
+						{
+							"list": [
+								{
+									"body": "On/Off switch"
+								},
+								{
+									"body": "Servo Motor Bay"
+								},
+								{
+									"body": "Stepper Motor Bay"
+								},
+								{
+									"body": "GPIO bay"
+								},
+								{
+									"body": "USB FTGI port"
+								},
+								{
+									"body": "Patch Bay"
+								},
+								{
+									"list": "Light Sensor"
+								},
+								{
+									"body": "RGB LED"
+								},
+								{
+									"body": "Buttons"
+								},
+								{
+									"body": "Breadboard"
+								},
+								{
+									"body": "Power"
+								},
+								{
+									"body": "eBrain Core (this is where programs live)"
+								}
+							],
+							"title": "Map of the eBrain"
+						}
+					],
+					"comment": "Keep it fun these first pages need to move.",
+					"type": "content basics materials"
+				},
+				"preface": {
+					"columns": [
+						{
+							"body": "Welcome to the latest Robot in a Can Guidebook. This book is for learners beginning their Robotics journey and their mentors. We’ll help hold your hand while you get your Robot in a Can up and running. Robot in a Can transforms how to develop and tinker with computers, robotics, and all technology.  Robot in a Can and this Guidebook is the ideal starting point for growing your knowledge. Dive in and make your world a better place!",
+							"title": "Preface"
+						},
+						{
+							"body": "The joy of Robot in a Can is its simple elegance. Robot in a Can’s open-source programming system called “eBrain Snap!” offers incredible freedom and allows learners to stand on the shoulders of giants. So what are you waiting for? A world of fun eBrain adventures awaits you!",
+							"message": "“Great things are not done by impulse, but a series of small things brought together.”-Vincent Van Gogh"
+						}
+					],
+					"type": "content"
+				}
+			},
+			{
+				"cover_page": {
+					"columns": [
+						{
+							"subtitle": "Getting familiar with your eBrain",
+							"title": " Chapter 1"
+						}
+					],
+					"type": "title chapter_title"
+				},
+				"table_of_contents": {
+					"columns": []
+				},
+				"inner_cover": {
+					"columns": []
+				},
+				"whats_in_the_can": {
+					"columns": []
+				},
+				"part_of_the_eBrain": {
+					"columns": []
+				},
+				"preface": {
+					"columns": []
+				},
+				"electronic_brains": {
+					"columns": [
+						{
+							"image": "svg/eBrain-01.svg",
+							"nerd_alert": "The eBrain is a powerful microcontroller with tons of features that are normally add ons! Jump to the next page for more detailse"
+						},
+						{
+							"body": "Computers are a lot like electronic thinking machines. And these “brains” aren’t just for laptops, tablets and phones – they can be found in all sorts of places like airplanes, household appliances and industrial equipment. They’re all around us and help run our society!On this page, you can see an image of your new eBrain. You will learn to play with this technology and control it, allowing you to make an impact on the world around you.",
+							"subtitle": "Everything Smart Needs a brain",
+							"title": "Electronic brains"
+						}
+					],
+					"type": "content basics"
+				},
+				"Batteries": {
+					"columns": [
+						{
+							"image": "svg/eBrain-05.svg"
+						},
+						{
+							"body": "MATERIALS REQUIRED:4x AA batteries, 1x battery pack, 1x eBrain",
+							"list": [
+								{
+									"list": "Insert 4x AA batteriesPlace the ﬂat side of the battery on the springs."
+								},
+								{
+									"list": "Connect the battery pack to the boardThe connector is located on the back of the board.Make sure it is the right way and snaps fully in place."
+								},
+								{
+									"list": "Turn it onThe tiny switch is on the front of the board. Slide theswitch from 0 to 1 and you will see the yellow lightturn on."
+								}
+							],
+							"subtitle": "Batteries required",
+							"title": "Power up your eBrain"
+						}
+					],
+					"comment_copy": "AA batery info should be a nerd alert",
+					"pagesubtype": "basics",
+					"type": "content"
+				},
+				"Power": {
+					"columns": [
+						{
+							"image": "svg/eBrain-06.svg"
+						},
+						{
+							"body": "The batteries are connected to the back of the board and extend to these two holes on the front of the board.Think of them as sides of a battery. The 3.3V is the positive side and the GND (ground) is the negative side.You can use these two holes to bring power to your projects!",
+							"nerd_alert": "each AA battery has 1.5V, so the power pack holds 6V total (4x AA). Your eBrain’s power connector runs at 3.3V. The power has been regulated ensuring that there are no spikes or drops in voltage, so you’ll always have power when you need it!",
+							"subtitle": "This is your eBrain’s power supply",
+							"title": "Power"
+						}
+					],
+					"comment_copy": "AA batery info should be a nerd alert",
+					"pagesubtype": "basics",
+					"type": "content"
+				},
+				"RGB LED": {
+					"columns": [
+						{
+							"image": "svg/eBrain-10.svg"
+						},
+						{
+							"body": "The tiny lights come in three colours: Red, Green andBlue, or RGB for short.You’ve probably heard of RGB before, but did youknow that by combining these three colours you cancreate 255 x 255 x 255 new colours? That’s over 16million different combinations!More on colour mixing later...",
+							"subtitle": "Your eBrain has three tiny lights on it, and we’regoing to create some circuits to turn them ON.",
+							"title": "The RGB LED"
+						}
+					],
+					"comment_copy": "AA batery info should be a nerd alert",
+					"pagesubtype": "basics",
+					"type": "content"
+				},
+				"Wire LED": {
+					"columns": [
+						{
+							"image": "svg/eBrain-11.svg"
+						},
+						{
+							"list": [
+								{
+									"list": "Get a male-to-male wire and place end in the 3.3Vpower source, located on the GPIO bay"
+								},
+								{
+									"list": "Plug the other end into the hole marked R (Red) onthe instrument panel. The LED on your board shouldlight up red. Congrats, you’ve just made a circuit!"
+								},
+								{
+									"list": "Next, remove the pin from the R plug and try the G(Green) and B (Blue) plugs. Sweet, you’ve just madethree circuits!"
+								}
+							],
+							"title": "Light up Red, Green, and Blue"
+						}
+					],
+					"comment_copy": "Note that the yellow plug on the far left of the instument panelis NOT a yellow light. This plug connects to theLight Sensor (LS). We’ll learn more about this later",
+					"type": "content activity"
+				},
+				"Patch Bay": {
+					"columns": [
+						{
+							"image": "svg/eBrain-08.svg"
+						},
+						{
+							"body": "We can patch the connections between our GPIOpins and the parts on our eBrain to activate them",
+							"nerd_alert": "The eBrain is a powerful microcontroller with tons of features that are normally add ons! Jump to the next page for more detailse",
+							"subtitle": "The patch bay is connected to the electronicparts on the eBrain.",
+							"title": "The Patch Bay"
+						}
+					],
+					"comment": "Amalia is bored",
+					"pagesubtype": "basics",
+					"type": "content"
+				},
+				"GPIO Bay": {
+					"columns": [
+						{
+							"image": "svg/eBrain-06.svg"
+						},
+						{
+							"body": "The most important area! Your computer speaks toyour board through the electrical connections onGPIO bay.This row of holes is almost like a direct phone lineinto the computer. Using these connections theeBrain computer cantalk (out) and listen (in) to otherelectronics. We will learn to use this more later!",
+							"nerd_alert": "The eBrain is a powerful microcontroller with tons of features that are normally add ons! Jump to the next page for more detailse",
+							"subtitle": "eBrain is a good teacher",
+							"title": "GPIO Bay"
+						}
+					],
+					"comment_copy": "If the ebrain is so smart, why do I need to learn how to program?Teach the eBrainWhy do I have to wait until page 17! to do something?",
+					"pagesubtype": "basics",
+					"type": "content"
+				},
+				"Try making your own light switch": {
+					"columns": [
+						{
+							"image": "svg/eBrain-12.svg"
+						},
+						{
+							"list": [
+								{
+									"list": "Get a second male-to-male wire. Place one wire inthe 3.3V plug on the GPIO bay, and the other one inthe R plug on the instrument panel"
+								},
+								{
+									"list": "Now take each wire in your hand and hold the twopins together. What happens? Your LED should lightup red!"
+								}
+							],
+							"title": "Try making your own light switch"
+						}
+					],
+					"comment_copy": "Note that the yellow plug on the far left of the instument panelis NOT a yellow light. This plug connects to theLight Sensor (LS). We’ll learn more about this later",
+					"pagesubtype": "activity",
+					"type": "content"
+				},
+				"Breadboard": {
+					"columns": [
+						{
+							"image": "svg/eBrain-09.svg"
+						},
+						{
+							"body": "You can think of breadboards as a team of helping hands. ",
+							"fun_fact": "In electronics breadboards are not for cutting bread but for making adjustable circuits. In the past tinkerers would wire up radios and other devices using actual breadboards with nails hammered into them.",
+							"nerd_alert": "The eBrain is a powerful microcontroller with tons of features that are normally add ons! Jump to the next page for more details.",
+							"title": "The Breadboard"
+						}
+					],
+					"comment": "Fun fact",
+					"pagesubtype": "basics",
+					"type": "content"
+				},
+				"use the breadboard": {
+					"columns": [
+						{
+							"image": "svg/eBrain-14.svg"
+						},
+						{
+							"list": [
+								{
+									"list": "Start with the wiring diagram from Exercise 1.1.2. This time, instead of using your fngers to hold the two wires together, place them in any two plugs in a vertical row on the breadboard. The red light should come on!"
+								},
+								{
+									"list": "Next, try plugging the wires into different rows. See? They are no longer connected to the same clip, therefore the light won’t turn on"
+								}
+							],
+							"title": "Connect two wires using the breadboard"
+						}
+					],
+					"comment_copy": "Note that the yellow plug on the far left of the instument panelis NOT a yellow light. This plug connects to theLight Sensor (LS). We’ll learn more about this later",
+					"pagesubtype": "activity",
+					"type": "content"
+				},
+				"Breadboard how it works": {
+					"columns": [
+						{
+							"image": "svg/eBrain-13.svg"
+						},
+						{
+							"body": "Sure, you can connect wires by holding them together, but luckily there’s much easier way, and that’s to use the breadboard. The breadboard let’s you clip things together so you don’t have to hold them. [link to video] The breadboard on your eBrain has 11 column. Think of each vertical row being one (electrically conductive) metal clip. ",
+							"title": "How to use the breadboard"
+						}
+					],
+					"comment": "Fun fact",
+					"pagesubtype": "basics",
+					"type": "content"
+				},
+				"Wire RGB Color Mix": {
+					"columns": [
+						{
+							"image": "svg/eBrain-15.svg"
+						},
+						{
+							"list": [
+								{
+									"list": "Take out four wires from your can. Place a wire in each light plug on the instrument panel and one in the 3.3 V power source."
+								},
+								{
+									"list": "What happens when we wire up multiple colors to a single row on the breadboard at the same time?"
+								}
+							],
+							"title": "Mix RGB colors using the breadboard",
+							"subtitle": "Let’s fnd out what happens when you combine Red, Green and Blue in different ways!"
+						}
+					],
+					"comment_copy": "Note that the yellow plug on the far left of the instument panelis NOT a yellow light. This plug connects to theLight Sensor (LS). We’ll learn more about this later",
+					"pagesubtype": "activity",
+					"type": "content"
+				},
+				"Try the following combinations": {
+					"columns": [
+						{
+							"image": "svg/eBrain-16.svg"
+						},
+						{
+							"list": [
+								{
+									"list": "Take out four wires from your can. Place a wire in each light plug on the instrument panel and one in the 3.3 V power source."
+								},
+								{
+									"list": "What happens when we wire up multiple colors to a single row on the breadboard at the same time?"
+								}
+							],
+							"title": "Try the following combinations",
+							"subtitle": "Let’s fnd out what happens when you combine Red, Green and Blue in different ways!"
+						}
+					],
+					"comment_copy": "Note that the yellow plug on the far left of the instument panelis NOT a yellow light. This plug connects to theLight Sensor (LS). We’ll learn more about this later",
+					"pagesubtype": "activity",
+					"type": "content"
+				},
+				"RGB color mixing results": {
+					"columns": [
+						{
+							"image": "svg/eBrain-17.svg"
+						},
+						{
+							"body": "Red and green make YellowRed and blue make MagentaGreen and Blue make CyanRed, Green and Blue make White",
+							"title": "RGB color mixing results",
+							"nerd_alert": "These colour results might be a little surprising! Mixing lights isn’t like mixing paints! [Click here] to learn more about additive vs subtractive colour"
+						}
+					],
+					"comment_copy": "Note that the yellow plug on the far left of the instument panelis NOT a yellow light. This plug connects to theLight Sensor (LS). We’ll learn more about this later",
+					"pagesubtype": "activity",
+					"type": "content"
+				},
+				"eBrain Superpower 1": {
+					"columns": [
+						{
+							"image": "svg/eBrain-02.svg"
+						},
+						{
+							"body": "Your eBrain is a ‘Development Board.’ That means the board can be re-purposed and used again and again for many different tasks. You don’t need to use any additional tools to build your circuits.  Your eBrain allows you to connect and build circuits using our patch cable system quickly. When you are ready, we’ll teach you how to make permanent circuits using soldering and even board design! ",
+							"nerd_alert": "The eBrain is a powerful microcontroller with tons of features that are normally add ons! Jump to the next page for more detailse",
+							"subtitle": "eBrain is a good teacher",
+							"title": "eBrain Superpower #1"
+						}
+					],
+					"pagesubtype": "basics",
+					"type": "content"
+				},
+				"eBrain Superpower 2": {
+					"columns": [
+						{
+							"image": "svg/eBrain-03.svg"
+						},
+						{
+							"body": "No wires to tie you down! You can remote control your eBrain from your computer or cellphone. Because you can tell it what to do wirelessly, your robot can be in one room while you’re in another.Although the eBrain uses a WiFi radio to communicate, it doesn’t need the internet to function.",
+							"fun_fact": "Hollywood actress and inventor Hedy LaMarr invented the precursor to the secure WiFi, all the way back in 1940.",
+							"subtitle": "eBrain listens and talks  over wifi",
+							"title": "eBrain Superpower #2"
+						}
+					],
+					"pagesubtype": "basics, superpower",
+					"type": "content"
+				},
+				"eBrain Superpower 3": {
+					"columns": [
+						{
+							"image": "svg/eBrain-04.svg"
+						},
+						{
+							"body": "We’ll be going over how to use Snap!, our favorite drag and drop software, but you’re not limited to it. You can actually program your eBrain with other languages such as ArduinoTM C or Python.",
+							"nerd_alert": "Hollywood actress and inventor Hedy LaMarr invented the precursor to the secure WiFi, all the way back in 1940.",
+							"subtitle": "eBrain can understand many programming languages.",
+							"title": "eBrain Superpower #3"
+						}
+					],
+					"comment": "If the ebrain is so smart, why do I need to learn how to program?Teach the eBrainWhy do I have to wait until page 17! to do something?",
+					"pagesubtype": "basics",
+					"type": "content"
+				}
+			},
+			{
+				"cover_page": {
+					"columns": [
+						{
+							"subtitle": "Building your first robot",
+							"title": "Chapter 2"
+						}
+					],
+					"type": "title chapter_title"
+				},
+				"table_of_contents": {
+					"columns": []
+				},
+				"inner_cover": {
+					"columns": []
+				},
+				"whats_in_the_can": {
+					"columns": []
+				},
+				"part_of_the_eBrain": {
+					"columns": []
+				},
+				"preface": {
+					"columns": []
+				},
+				"Back_Cover": {
+					"columns": [
+						{
+							"title": "That’s it for now!<br> Thanks for now, and don’t forget to check back<br> at learn.robotinacan.com for new materials!"
+						}
+					],
+					"comment": "Fun fact",
+					"type": "title back_cover"
+				},
+				"Final_Words": {
+					"columns": [
+						{
+							"image": "sample.png"
+						},
+						{
+							"body": "Computers are a lot like electronic thinking machines. And these “brains” aren’t just for laptops, tablets and phones – they can be found in all sorts of places like airplanes, household appliances and industrial equipment. They’re all around us and help run our society! On this page, you can see an image of your new eBrain. You will learn to play with this technology and control it, allowing you to make an impact on the world around you.",
+							"nerd_alert": "The eBrain is a powerful microcontroller with tons of features that are normally add ons! Jump to the next page for more detailse",
+							"subtitle": "Before you go.",
+							"title": "Conclusion"
+						}
+					],
+					"comment": "Amalia is bored",
+					"pagesubtype": "basics",
+					"type": "content"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,592 @@
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/lora/v15/0QI8MX1D_JOuMw_hLdO6T2wV9KnW-MoFoq92mQ.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/lora/v15/0QI6MX1D_JOuGQbT0gvTJPa787weuxJBkqg.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Nunito Sans Regular'), local('NunitoSans-Regular'), url(https://fonts.gstatic.com/s/nunitosans/v5/pe0qMImSLYBIv1o4X1M8cce9I94.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Nunito Sans Bold'), local('NunitoSans-Bold'), url(https://fonts.gstatic.com/s/nunitosans/v5/pe03MImSLYBIv1o4X1M8cc8GBs5tU1Q.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: local('Nunito Sans ExtraBold'), local('NunitoSans-ExtraBold'), url(https://fonts.gstatic.com/s/nunitosans/v5/pe03MImSLYBIv1o4X1M8cc8aBc5tU1Q.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: local('Nunito Sans Black'), local('NunitoSans-Black'), url(https://fonts.gstatic.com/s/nunitosans/v5/pe03MImSLYBIv1o4X1M8cc8-BM5tU1Q.ttf) format('truetype');
+}
+.main {
+  font-family: "Lora", serif;
+  counter-reset: sec-counter;
+}
+.main h1 {
+  font-size: 2.2em;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 900;
+  color: #2381d6;
+}
+.main .back_cover h1 {
+  color: #FEFEFE !important;
+}
+.main .back_cover h2 {
+  color: #FEFEFE !important;
+}
+.main .chapter_title h1 {
+  font-size: 4em;
+  color: #FEFEFE !important;
+}
+.main .chapter_title h2 {
+  color: #FEFEFE !important;
+}
+.main h2 {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 700;
+  color: #14394d;
+  font-size: 1.2em;
+}
+.main h3,
+.main h4,
+.main h5,
+.main h6 {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 700;
+  color: #14394d;
+}
+.main section {
+  margin: 0;
+  padding: 1.2vh;
+  height: 100%;
+  background-image: url("./imgs/svg/GraphPaper.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: #FEFEFE;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.1) 20%, 30%, #FEFEFE 50%), url("./imgs/svg/GraphPaper.svg");
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.main section.cover > .container > .columns {
+  height: 100%;
+  align-items: center;
+}
+.main section:not(:first-child):not(:last-child)::after {
+  /* Increment page counter on all pages but first and last 
+      counter-increment: sec-counter;
+      content: counter(sec-counter);
+      align-self: flex-end;
+      padding: 1em;*/
+}
+.main section:last-child {
+  margin-bottom: 0px;
+}
+.main section.cover {
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.main section.back_cover {
+  background-color: #FEFEFE;
+  background-image: url("./imgs/svg/GraphPaper.svg"), linear-gradient(#1d6cb3, #195c99);
+}
+.main section.chapter_title {
+  background-color: #FEFEFE;
+  background-image: url("./imgs/svg/GraphPaper.svg"), linear-gradient(#1d6cb3, #195c99);
+}
+.main section.title h1 {
+  color: #2381d6;
+  margin: 0;
+  text-align: center;
+}
+.main section .columns {
+  min-width: 100%;
+  height: 100%;
+  padding: 1em;
+}
+.main section .columns img {
+  max-width: 100%;
+}
+.main section .columns p {
+  white-space: pre-line;
+}
+#pagination {
+  position: fixed;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  right: 30px;
+  list-style: none;
+}
+#pagination li {
+  position: relative;
+  margin: 20px 0;
+  background: #fff;
+  border-radius: 100%;
+  width: 8px;
+  height: 8px;
+  transition: all 0.2s ease;
+}
+#pagination li:hover {
+  -webkit-transform: scale(1.5);
+  transform: scale(1.5);
+}
+#pagination a {
+  position: absolute;
+  text-decoration: none;
+  left: 0;
+  top: 0;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+body {
+  font-family: sans-serif;
+  margin: 0;
+}
+body.page-1 #pagination li:nth-of-type(1) {
+  -webkit-transform: scale(2);
+  transform: scale(2);
+}
+body.page-2 #pagination li:nth-of-type(2) {
+  -webkit-transform: scale(2);
+  transform: scale(2);
+}
+body.page-3 #pagination li:nth-of-type(3) {
+  -webkit-transform: scale(2);
+  transform: scale(2);
+}
+body.page-4 #pagination li:nth-of-type(4) {
+  -webkit-transform: scale(2);
+  transform: scale(2);
+}
+body.page-5 #pagination li:nth-of-type(5) {
+  -webkit-transform: scale(2);
+  transform: scale(2);
+}
+.section {
+  margin: auto;
+}
+.navbar .column a {
+  vertical-align: middle;
+  padding: 1em 2em;
+}
+.hidden {
+  visibility: hidden;
+}
+figure,
+nav,
+section {
+  display: block;
+}
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+a {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+pre {
+  white-space: pre-line;
+  word-wrap: break-word;
+}
+strong {
+  font-weight: bold;
+}
+pre,
+code {
+  font-family: monospace, sans-serif;
+}
+html {
+  background-color: #f1f1f1;
+  font-size: 14px;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  min-width: 300px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  text-rendering: optimizeLegibility;
+}
+figure,
+section {
+  display: block;
+}
+body {
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+body {
+  color: rgba(0, 0, 0, 0.9);
+  font-size: 1.4em;
+  font-weight: 400;
+  line-height: 1.42857143;
+}
+a {
+  color: #1fc8db;
+  cursor: pointer;
+  text-decoration: none;
+  -webkit-transition: none 86ms ease-out;
+  transition: none 86ms ease-out;
+}
+a:hover {
+  color: #222324;
+}
+code {
+  background-color: #f5f7fa;
+  color: #ed6c63;
+  font-size: 12px;
+  font-weight: normal;
+  padding: 1px 2px 2px;
+}
+pre {
+  background-color: #f5f7fa;
+  color: #69707a;
+  white-space: pre;
+  word-wrap: normal;
+}
+pre code {
+  background-color: #f5f7fa;
+  color: #69707a;
+  display: block;
+  overflow-x: auto;
+  padding: 16px 20px;
+}
+hr {
+  border-top-color: #d3d6db;
+  margin: 40px 0;
+}
+span {
+  font-style: inherit;
+  font-weight: inherit;
+}
+strong {
+  color: #222324;
+  font-weight: 700;
+}
+.content:not(:last-child),
+.title:not(:last-child),
+.subtitle:not(:last-child),
+.highlight:not(:last-child) {
+  margin-bottom: 20px;
+}
+.container {
+  position: relative;
+  display: block;
+}
+@media screen and (min-width: 980px) {
+  .container {
+    margin: 0 auto;
+    max-width: 960px;
+  }
+}
+@media screen and (min-width: 1180px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+.has-text-centered {
+  text-align: center;
+}
+.content li + li {
+  margin-top: 0.25em;
+}
+.content p:not(:last-child),
+.content ul:not(:last-child) {
+  margin-bottom: 1em;
+}
+.content ol {
+  list-style: decimal outside;
+  margin-left: 0em;
+  margin-right: 2em;
+  margin-top: 1em;
+}
+.content ul {
+  list-style: disc outside;
+  margin-left: 0em;
+  margin-right: 2em;
+  margin-top: 1em;
+}
+.notification {
+  background-color: #f5f7fa;
+  border-radius: 3px;
+  padding: 16px 20px;
+  position: relative;
+}
+.notification:after {
+  clear: both;
+  content: " ";
+  display: table;
+}
+.notification.is-info {
+  background-color: #42afe3;
+  color: #fff;
+}
+.notification.is-success {
+  background-color: #97cd76;
+  color: #fff;
+}
+.notification.is-warning {
+  background-color: #fce473;
+  color: rgba(17, 17, 17, 0.5);
+}
+.notification.is-danger {
+  background-color: #ed6c63;
+  color: #fff;
+}
+.is-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.title {
+  color: #222324;
+  font-size: 28px;
+  line-height: 1;
+}
+.title,
+.title .subtitle {
+  font-weight: 300;
+  word-break: break-word;
+}
+.title + .subtitle {
+  margin-top: -10px;
+}
+@media screen and (min-width: 769px) {
+  .title + .subtitle {
+    margin-top: -15px;
+  }
+}
+.subtitle {
+  color: #69707a;
+  font-size: 18px;
+  line-height: 1.125;
+}
+.highlight {
+  font-size: 12px;
+  font-weight: normal;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 0;
+}
+.highlight pre {
+  overflow: auto;
+  max-width: 100%;
+}
+.column {
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  padding-left: 3em;
+  padding-right: 3em;
+}
+@media screen and (min-width: 769px) {
+  .column.is {
+    -webkit-box-flex: 0;
+    -ms-flex: none;
+    flex: none;
+  }
+  .column.is-half {
+    -webkit-box-flex: 0;
+    -ms-flex: none;
+    flex: none;
+    width: 50%;
+  }
+  .column.is-quarter {
+    -webkit-box-flex: 0;
+    -ms-flex: none;
+    flex: none;
+    width: 25%;
+  }
+  .column.is-2 {
+    -webkit-box-flex: 0;
+    -ms-flex: none;
+    flex: none;
+    width: 16.66667%;
+  }
+}
+.columns {
+  margin-left: -10px;
+  margin-right: -10px;
+  margin-top: -10px;
+}
+.columns:last-child {
+  margin-bottom: -10px;
+}
+.columns:not(:last-child) {
+  margin-bottom: 10px;
+}
+@media screen and (min-width: 769px) {
+  .columns:not(.is-desktop) {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+.highlight {
+  background-color: #fdf6e3;
+  color: #586e75;
+}
+.highlight .s {
+  color: #2aa198;
+}
+.highlight .na {
+  color: #b58900;
+}
+.highlight .nt {
+  color: #268bd2;
+}
+@media screen and (max-width: 768px) {
+  .level-item:not(: last-child) {
+    margin-bottom: 10px;
+  }
+}
+@media screen and (min-width: 769px) {
+  .pagination > a:not(: first-child) {
+    -webkit-box-ordinal-group: 2;
+    -ms-flex-order: 1;
+    order: 1;
+  }
+}
+.section {
+  background-color: #fff;
+  padding: 20px 20px;
+}
+.shadowed {
+  box-shadow: 0 20px 40px -20px #333;
+}
+.highlight {
+  position: relative;
+}
+form {
+  font-family: "Open Sans Condensed", arial, sans;
+  background: #ffffff;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+}
+form h2 {
+  background: #4d4d4d;
+  text-transform: uppercase;
+  font-family: inherit;
+  color: #797979;
+  font-size: 18px;
+  font-weight: 100;
+  padding: 22px;
+  margin: -20px -20px 20px -20px;
+}
+form botton:hover,
+form input[type="button"]:hover,
+form input[type="submit"]:hover {
+  background: linear-gradient(to bottom, #34caca 5%, #30c9c9 100%);
+  background-color: #34caca;
+}
+form input[type="text"],
+form input[type="date"],
+form input[type="datetime"],
+form input[type="datetime-local"],
+form input[type="email"],
+form input[type="number"],
+form input[type="tel"],
+form input[type="search"],
+form input[type="time"],
+form input[type="url"],
+form input[type="password"],
+form textarea,
+form select {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  display: block;
+  width: 100%;
+  padding: 7px;
+  border: none;
+  border-radius: 3px;
+  border-bottom: 1px solid #ddd;
+  background: white;
+  margin-bottom: 10px;
+  font: 16px Arial, Helvetica, sans-serif;
+  height: 45px;
+}
+form input[type="datetime-local"] {
+  width: inherit;
+}
+form textarea {
+  resize: none;
+  overflow: hidden;
+}
+form input[type="button"],
+form input[type="submit"],
+form button {
+  -moz-box-shadow: inset 0px 1px 0px 0px #45d6d6;
+  -webkit-box-shadow: inset 0px 1px 0px 0px #45d6d6;
+  box-shadow: inset 0px 1px 0px 0px #45d6d6;
+  background-color: #2cbbbb;
+  border: 1px solid #27a0a0;
+  border-radius: 3px;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 14px;
+  padding: 8px 18px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.paper {
+  position: relative;
+  margin-bottom: 2.4em;
+}
+.workspace {
+  background: #f1f1f1;
+}
+.branding {
+  position: absolute;
+  top: 2em;
+  right: 2em;
+}
+.page_type {
+  position: absolute;
+  top: 1em;
+  left: 0px;
+}
