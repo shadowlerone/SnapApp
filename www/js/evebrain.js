@@ -31,46 +31,45 @@ EveBrain.prototype = {
   timeoutTimer: undefined,
 
   connect: function(){
-    console.info("Connect function called.");
-    // if(!this.connected && !this.error){
-    //   var self = this;
-    //   try { 
-    //     //clear any previous websockets and clear msg queue and all timers
-    //     clearTimeout(self.timeoutTimer);
-    //     clearTimeout(self.connTimeout);
-    //     clearTimeout(self.reconnectTimer);
-    //     self.ws.close();
-    //     self.robot_state = 'idle';
-    //     self.msg_stack = [];
-    //     self.cbs = {};
-    //   }
-    //   catch(error) {
-    //     console.log(error);
-    //   }
-    //   this.has_connected = false;
-    //   this.ws = filterUnicode(new WebSocket(this.url));
-    //   this.ws.onmessage = function(ws_msg){self.handle_ws(ws_msg)};
-    //   this.ws.onopen = function(){
-    //     self.version(function(){
-    //       self.setConnectedState(true);
-    //       attempts = 0;
-    //     });
-    //   }
-    //   this.ws.onerror = function(err){self.handleError(err); attempts += 1;}
-    //   this.ws.onclose = function(err){self.handleError(err); attempts += 1;}
-    //   if (attempts < 30) {
-    //     this.connTimeout = window.setTimeout(function(){
-    //       if(!self.connected){
-    //         try { 
-    //           self.ws.close();
-    //         }
-    //         catch(error) {
-    //           console.log(error);
-    //         }
-    //       } 
-    //     }, 1000);
-    //   }
-    // }
+    if(!this.connected && !this.error){
+      var self = this;
+      try { 
+        //clear any previous websockets and clear msg queue and all timers
+        clearTimeout(self.timeoutTimer);
+        clearTimeout(self.connTimeout);
+        clearTimeout(self.reconnectTimer);
+        self.ws.close();
+        self.robot_state = 'idle';
+        self.msg_stack = [];
+        self.cbs = {};
+      }
+      catch(error) {
+        console.log(error);
+      }
+      this.has_connected = false;
+      this.ws = filterUnicode(new WebSocket(this.url));
+      this.ws.onmessage = function(ws_msg){self.handle_ws(ws_msg)};
+      this.ws.onopen = function(){
+        self.version(function(){
+          self.setConnectedState(true);
+          attempts = 0;
+        });
+      }
+      this.ws.onerror = function(err){self.handleError(err); attempts += 1;}
+      this.ws.onclose = function(err){self.handleError(err); attempts += 1;}
+      if (attempts < 30) {
+        this.connTimeout = window.setTimeout(function(){
+          if(!self.connected){
+            try { 
+              self.ws.close();
+            }
+            catch(error) {
+              console.log(error);
+            }
+          } 
+        }, 1000);
+      }
+    }
   },
 
   refresh: function(){
