@@ -76,7 +76,7 @@
                 try {loadFromString(arg);} catch (err) {console.error(err)}
                 
             })
-            
+            console.log(shadowlerone); // This intentionally throws and error. The app will close when it has executed up to this point.
             var evebrain;
             var world;
             var openclose = 0;
@@ -152,13 +152,6 @@
         });
     </script>
     <script>
-
-        document.addEventListener("deviceready", onDeviceReady, false);
-        function onDeviceReady() {
-            // console.log(device.cordova);
-            // const remote = require('electron').remote;
-            console.log(remote.getGlobal('sharedObject'))
-        }
         function loadFromString(string) {
             console.info("Loading Document.");
             world.children[0].openProjectString(string);
