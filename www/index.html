@@ -69,14 +69,16 @@
         <script type="text/javascript" src="js/Morejs/sketch.js?version=2019-06-27"></script>
         <script type="text/javascript" src="js/Morejs/video.js?version=2019-06-27"></script>
         <script type="text/javascript" src="js/Morejs/maps.js?version=2019-06-27"></script>
+        <script src="open-with.js"></script>
+        <script src="debug.js"></script>
         <script type="text/javascript">
-            const { ipcRenderer } = require('electron');
-            ipcRenderer.on('loadDocument', (event, arg) => {
-                console.info("Document received.");
-                try {loadFromString(arg);} catch (err) {console.error(err)}
+            // const { ipcRenderer } = require('electron');
+            // ipcRenderer.on('loadDocument', (event, arg) => {
+            //     console.info("Document received.");
+            //     try {loadFromString(arg);} catch (err) {console.error(err)}
                 
-            })
-            console.log(shadowlerone); // This intentionally throws and error. The app will close when it has executed up to this point.
+            // })
+            // console.log(shadowlerone); // This intentionally throws and error. The app will close when it has executed up to this point.
             var evebrain;
             var world;
             var openclose = 0;
@@ -87,7 +89,7 @@
             } else {
                 window.location = '#m=' + '192.168.4.1';
             }
-
+            
             var app = new EveBrainApp(function (m) {
                 evebrain = m;
                 m.version(function (status, msg) {
@@ -152,7 +154,7 @@
         });
     </script>
     <script type="text/javascript" src="js/TOCSearch.js"></script>
-    <script src="open-with.js"></script>
+    
 </body>
 
 </html>

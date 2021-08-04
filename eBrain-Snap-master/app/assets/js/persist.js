@@ -40,13 +40,13 @@ Persister.prototype = {
   },
   handleUnload: function(){
     // compare the programs to check for differences
-    if(!this.unsaved()){
-      // Program has not changed so no need to store unsaved
-      localStorage.removeItem('/' + this.namespace + '/unsaved');
-    }else{
-      // Program has changed, so save unsaved changes
-      localStorage['/' + this.namespace + '/unsaved'] = this.saveHandler(this.currentProgram || 'untitled');
-    }
+    // if(!this.unsaved()){
+    //   // Program has not changed so no need to store unsaved
+    //   localStorage.removeItem('/' + this.namespace + '/unsaved');
+    // }else{
+    //   // Program has changed, so save unsaved changes
+    //   localStorage['/' + this.namespace + '/unsaved'] = this.saveHandler(this.currentProgram || 'untitled');
+    // }
   },
   unsaved: function(){
     return !this.currentProgram || localStorage['/' + this.namespace + '/programs/' + this.currentProgram] !== this.saveHandler(this.currentProgram);

@@ -1,7 +1,7 @@
 var Persister = function(conf){
   var self = this;
   this.namespace = window.location.pathname.replace(/\//g, '')
-  window.addEventListener('beforeunload', function(){return self.handleUnload();});
+  // window.addEventListener('beforeunload', function(){return self.handleUnload();});
   if(conf.saveHandler && typeof conf.saveHandler === 'function' && conf.loadHandler && typeof conf.loadHandler === 'function'){
     this.saveHandler = conf.saveHandler;
     this.loadHandler = conf.loadHandler;
@@ -39,14 +39,16 @@ Persister.prototype = {
     }
   },
   handleUnload: function(){
+    console.info("Persist unload");
+    console.trace();
     // compare the programs to check for differences
-    if(!this.unsaved()){
-      // Program has not changed so no need to store unsaved
-      localStorage.removeItem('/' + this.namespace + '/unsaved');
-    }else{
-      // Program has changed, so save unsaved changes
-      localStorage['/' + this.namespace + '/unsaved'] = this.saveHandler(this.currentProgram || 'untitled');
-    }
+    // if(!this.unsaved()){
+    //   // Program has not changed so no need to store unsaved
+    //   localStorage.removeItem('/' + this.namespace + '/unsaved');
+    // }else{
+    //   // Program has changed, so save unsaved changes
+    //   localStorage['/' + this.namespace + '/unsaved'] = this.saveHandler(this.currentProgram || 'untitled');
+    // }
   },
   unsaved: function(){
     return !this.currentProgram || localStorage['/' + this.namespace + '/programs/' + this.currentProgram] !== this.saveHandler(this.currentProgram);

@@ -31,48 +31,50 @@ EveBrain.prototype = {
   timeoutTimer: undefined,
 
   connect: function(){
-    if(!this.connected && !this.error){
-      var self = this;
-      try { 
-        //clear any previous websockets and clear msg queue and all timers
-        clearTimeout(self.timeoutTimer);
-        clearTimeout(self.connTimeout);
-        clearTimeout(self.reconnectTimer);
-        self.ws.close();
-        self.robot_state = 'idle';
-        self.msg_stack = [];
-        self.cbs = {};
-      }
-      catch(error) {
-        console.log(error);
-      }
-      this.has_connected = false;
-      this.ws = filterUnicode(new WebSocket(this.url));
-      this.ws.onmessage = function(ws_msg){self.handle_ws(ws_msg)};
-      this.ws.onopen = function(){
-        self.version(function(){
-          self.setConnectedState(true);
-          attempts = 0;
-        });
-      }
-      this.ws.onerror = function(err){self.handleError(err); attempts += 1;}
-      this.ws.onclose = function(err){self.handleError(err); attempts += 1;}
-      if (attempts < 30) {
-        this.connTimeout = window.setTimeout(function(){
-          if(!self.connected){
-            try { 
-              self.ws.close();
-            }
-            catch(error) {
-              console.log(error);
-            }
-          } 
-        }, 1000);
-      }
-    }
+    console.info("Connect function called.");
+    // if(!this.connected && !this.error){
+    //   var self = this;
+    //   try { 
+    //     //clear any previous websockets and clear msg queue and all timers
+    //     clearTimeout(self.timeoutTimer);
+    //     clearTimeout(self.connTimeout);
+    //     clearTimeout(self.reconnectTimer);
+    //     self.ws.close();
+    //     self.robot_state = 'idle';
+    //     self.msg_stack = [];
+    //     self.cbs = {};
+    //   }
+    //   catch(error) {
+    //     console.log(error);
+    //   }
+    //   this.has_connected = false;
+    //   this.ws = filterUnicode(new WebSocket(this.url));
+    //   this.ws.onmessage = function(ws_msg){self.handle_ws(ws_msg)};
+    //   this.ws.onopen = function(){
+    //     self.version(function(){
+    //       self.setConnectedState(true);
+    //       attempts = 0;
+    //     });
+    //   }
+    //   this.ws.onerror = function(err){self.handleError(err); attempts += 1;}
+    //   this.ws.onclose = function(err){self.handleError(err); attempts += 1;}
+    //   if (attempts < 30) {
+    //     this.connTimeout = window.setTimeout(function(){
+    //       if(!self.connected){
+    //         try { 
+    //           self.ws.close();
+    //         }
+    //         catch(error) {
+    //           console.log(error);
+    //         }
+    //       } 
+    //     }, 1000);
+    //   }
+    // }
   },
 
   refresh: function(){
+    console.info("Refresh function called.");
     var self = this;
     self.ws.close();
     clearTimeout(self.connTimeout);
@@ -92,6 +94,7 @@ EveBrain.prototype = {
   },
 
   setConnectedState: function(state){
+    console.info("setConnectedState called.")
     var self = this;
     clearTimeout(self.connTimeout);
     self.connected = state;
@@ -118,6 +121,7 @@ EveBrain.prototype = {
   },
 
   broadcast: function(msg){
+    console.log("broadcast function called")
     for(i in this.listeners){
       if(this.listeners.hasOwnProperty(i)){
         this.listeners[i](msg);
@@ -127,6 +131,7 @@ EveBrain.prototype = {
 
   addListener: function(listener){
     this.listeners.push(listener);
+    console.info(`Listener ${listener} added to listeners.\nCurrent listeners: ${this.listeners}`);
   },
 
   handleError: function(err){
@@ -139,15 +144,17 @@ EveBrain.prototype = {
       self.reconnectTimer = undefined;
       this.msg_stack = [];
     }else{
-      console.log(err);
+      console.error(err);
     }
   },
 
   move: function(direction, distance, cb){
+    console.info(`move called. Direction: ${direction}, Distance: ${distance}. CB = ${cb}`)
     this.send({cmd: direction, arg: distance}, cb);
   },
 
   turn: function(direction, angle, cb){
+    console.info(`turn called. Direction: ${direction}, Angle: ${angle}. CB = ${cb}`)
     this.send({cmd: direction, arg: angle}, cb);
   },
 
@@ -331,6 +338,7 @@ EveBrain.prototype = {
   },
 
   handle_ws: function(ws_msg){
+    console.info(`handle ws called with message: ${ws_msg}`);
     if (typeof ws_msg != 'undefined') {
       msg = JSON.parse(ws_msg.data);
       msg.msg = filterUnicode(msg.msg);
