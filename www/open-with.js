@@ -4,6 +4,22 @@ ipcRenderer.on('loadDocument', (event, arg) => {
 	try { loadFromString(arg); } catch (err) { console.error(err) }
 })
 
+function init_blocks (){
+	var po = document.createElement("script");
+	po.type = "text/javascript";
+	po.async = true;
+	po.src = "https://app.robotinacan.com/evebrain.js";
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(po, s);
+	if (world.modified == 0 || world.modified == undefined) {
+			SpriteMorph.prototype.categories.push("RIAC");
+			SpriteMorph.prototype.blockColor.RIAC = new Color(216, 45, 45);
+			world.children[0].createCategories();
+			world.modified = 1;
+	}
+}
+
+
 function loadFromString(string) {
 	console.info("Loading Document.");
 	world.children[0].openProjectString(string);

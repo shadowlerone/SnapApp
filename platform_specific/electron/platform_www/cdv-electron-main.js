@@ -46,6 +46,13 @@ try {
     console.error("An error occured while trying to open the document.");
     document = null;
 }
+if (document === null) {
+    try {
+        
+    } catch (err) {
+        console.error(err)
+    }
+}
 
 ipcMain.on('world-ready', (event, arg) => {
     console.info("World is ready.");
