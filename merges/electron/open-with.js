@@ -1,3 +1,5 @@
+const { ipcRenderer } = require('electron');
+
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
@@ -5,10 +7,12 @@ function onDeviceReady() {
 	console.info("Device ready.");
 }
 
-// ipcRenderer.on('loadDocument', (event, arg) => {
-// 	console.info("Document received.");
-// 	try { loadFromString(arg); } catch (err) { console.error(err) }
-// })
+
+
+ipcRenderer.on('loadDocument', (event, arg) => {
+	console.info("Document received.");
+	try { loadFromString(arg); } catch (err) { console.error(err) }
+})
 
 function init_blocks (){
 	var po = document.createElement("script");

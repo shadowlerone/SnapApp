@@ -31,6 +31,16 @@ const {
 	ipcMain
 } = require('electron');
 
+app.on("open-file", (event, path) => {
+    console.info("File opening.");
+    if (process.argv
+        .filter(
+            a => a.endsWith(".xml")
+        ).length < 1) {
+
+    }
+})
+
 let document;
 // if ()
 try {

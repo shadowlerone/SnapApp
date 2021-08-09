@@ -27,6 +27,7 @@ var app = new EveBrainApp(function (m) {
 let world;
 
 window.addEventListener('load', function () {
+	const worldReady = new Event('world-ready');
 	var world_canvas = document.getElementById('world');
 	var ide_morph = new IDE_Morph();
 	var loop = function loop() {
@@ -177,13 +178,13 @@ window.addEventListener('load', function () {
 		}
 	}
 	console.info("World is ready for loading a document.");
-	ipcRenderer.send('world-ready');
 	// if (world.modified == 0 || world.modified == undefined) {
 	// 	SpriteMorph.prototype.categories.push("RIAC");
 	// 	SpriteMorph.prototype.blockColor.RIAC = new Color(216, 45, 45);
 	// 	world.children[0].createCategories();
 	// 	world.modified = 1;
 	// }
+	document.dispatchEvent(worldReady);
 	init_blocks();
 	window.dispatchEvent(new Event('resize'));
 	loop();
