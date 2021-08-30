@@ -70,7 +70,7 @@ ipcMain.on('world-ready', (event, arg) => {
         console.info("Sending Document.");
         event.reply("loadDocument",document);
     } else {
-        console.info("Document is null, not sending document.")
+        console.info("Document is null, not sending document.");
     }
 })
 
