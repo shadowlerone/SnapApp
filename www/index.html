@@ -56,8 +56,28 @@
             }
         </script>
         <script src="src/electron-communications.js"></script>
+        <script type="module">
+            
+        </script>
     </head>
     <body style="margin: 0;">
+        <div class="hidden" id="video">
+            <video></video>
+        </div>
+        <style>
+            .hidden {
+                display: none;
+            }
+            #video {
+                z-index: 10000000;
+                /* display: ; */
+                position: absolute;
+                top:0;
+                left:0;
+                height: 100vh;
+                width: 100vw;
+            }
+        </style>
         <canvas id="world" tabindex="1" style="position: absolute;"></canvas>
     </body>
     <script>
@@ -68,5 +88,24 @@
             world.children[0].flatDesign();
             Process.prototype.enableJS = true;
         }
+    </script>
+    <script type="module">
+        import QrScanner from './src/qr-scanner.min.js';
+        QrScanner.WORKER_PATH = './src/qr-scanner-worker.min.js';
+        const qrScanner = new QrScanner(document.getElementById('video').children[0], (result) => {
+            console.log('decoded qr code:', result);
+            qrScanner.stop();
+    });
+        function startScanning() {
+            document.getElementById('video').classList.remove('hidden');
+            qrScanner.start();
+        }
+        function stopScanning(){
+            document.getElementById('video').classList.add('hidden');
+            qrScanner.stop();
+        }
+        document.addEventListener('scan', startScanning);
+        document.addEventListener('stop', stopScanning);
+
     </script>
 </html>

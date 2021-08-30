@@ -26,6 +26,8 @@
     </platform>
     <platform name="electron">
         <preference name="ElectronSettingsFilePath" value="res/electron/settings.json" />
+        <!-- <preference name="hostname" value="localhost" />
+        <preference name="scheme" value="snap" /> -->
         <hook type="before_build" src="./utility.js"/>
     </platform>
 
