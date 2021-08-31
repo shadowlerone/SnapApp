@@ -68,6 +68,9 @@
             .hidden {
                 display: none;
             }
+            .hidden * {
+                display:none;
+            }
             #video {
                 z-index: 10000000;
                 /* display: ; */
@@ -76,6 +79,7 @@
                 left:0;
                 height: 100vh;
                 width: 100vw;
+                overflow: hidden;
             }
         </style>
         <canvas id="world" tabindex="1" style="position: absolute;"></canvas>
@@ -94,6 +98,7 @@
         QrScanner.WORKER_PATH = './src/qr-scanner-worker.min.js';
         const qrScanner = new QrScanner(document.getElementById('video').children[0], (result) => {
             console.log('decoded qr code:', result);
+            document.getElementById('video').classList.add('hidden');
             qrScanner.stop();
     });
         function startScanning() {
