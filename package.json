@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "electron-setup": "cordova platform remove electron & cordova platform add electron@2.0.0 & node utility.js electron"
+    "electron-setup": "cordova platform remove electron & cordova platform add electron@2.0.0 & node utility.js electron",
+    "updateBlocks": "node utility.js --updateBlocks"
   },
   "keywords": [
     "ecosystem:cordova"

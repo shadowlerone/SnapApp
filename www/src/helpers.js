@@ -25,7 +25,7 @@ function loadBlocksFromUrl(url) {
 	xhttp.send();
 }
 function init_blocks (){
-	loadBlocksFromUrl('./RIAC/RIAC_Blocks.xml');
+	loadBlocksFromUrl('./RIAC/RIAC_blocks_module.xml');
 }
 
 document.addEventListener('world-ready', () => {
