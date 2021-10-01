@@ -5,10 +5,11 @@ const process = require("process");
 const path = require('path')
 const package = require("./package.json");
 var platforms;
-
+let tasks;
 function updateBlocks() {
+	tasks += 1;
 	console.info("Updating blocks");
-	url = "https://raw.githubusercontent.com/Robot-In-A-Can/eBrain-Snap/develop/src/RIAC_blocks_module.xml";
+	url = "https://raw.githubusercontent.com/Robot-In-A-Can/eBrain-Snap/develop/RIAC%20Blocks.xml";
 	console.info("Urls: ", url);
 	https.get(url, (res) => {
 		const p = path.join("./", "www", "RIAC", "RIAC_blocks_module.xml");
@@ -27,9 +28,11 @@ function updateBlocks() {
 	}).on('error', (e) => {
 		console.error(e);
 	});
+	tasks -= 1;
 }
 
 if (typeof require !== 'undefined' && require.main === module) {
+	task += 1;
 	if (process.argv.filter(a => !a.startsWith("-")).slice(2).length == 0) {
 		platforms = []
 	} else {
@@ -48,6 +51,7 @@ if (typeof require !== 'undefined' && require.main === module) {
 				.then(() => console.log(`Successfully copied: ${p}`))
 				.catch(err => console.error(err))
 		})
+	task -=1;
 }
 
 
@@ -65,5 +69,7 @@ module.exports = function (context) {
 		}
 	})
 }
-
+while (tasks > 0) {
+	delay(10)
+}
 console.info("I'm done here! Rock on and have a nice day!");
