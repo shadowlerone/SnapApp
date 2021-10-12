@@ -1,149 +1,72 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Snap!</title>
-    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, user-scalable=no">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/TOCSearch.css">
-    
-    <script type="text/javascript" src="js/FileSaver.min.js"></script>
-    <script type="text/javascript" src="js/evebrain.js"></script>
-    <script type="text/javascript" src="js/evebrain-save.js"></script>
-    <script type="text/javascript" src="js/evebrain-app.js"></script>
-    <script type="text/javascript" src="js/persist.js"></script>
-    <script type="text/javascript" src="js/cordovajs/events.js"></script>
-    
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-</head>
-
-
-
-<body onload="onLoad()">
-    <div id="header">
-        <span class="connState"></span>
-        <div id="save"></div>
-        <div id="instructionsClick">
-            <div id="fourdotsbutton"><img src="img/4dots.svg" alt="menu"/></div>
-            <div id="logo"><img src="img/logo.svg" alt="Robot In A Can Snap!" style="height: 37px; padding: 6px 6px 6px 6px;"/></div>
-        </div>
-        <div id="searchbar">
-            <a href="Extras/Guidebook.1.6.1.search.html" target="_blank"><img src="img/GuidebookIcon.svg" alt="Robot In A Can Snap!" style="display:inline; height: 28px; padding: 11px 11px 15px 11px;"/></a>
-            <div class="form__field" style="display:inline;">
-                <div class="input__wrapper awesomplete-wrapper" style="display:inline;">
-                    <input id="toc-search" class="js-awesomplete js-input" type="search" aria-lablledby="toc-search__label" style="display:inline; width:300px; height:28px;" placeholder="Search Guidebook..." />
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="eApp">
-        <script type="text/javascript" src="js/Morejs/morphic.js"></script>
-        <script type="text/javascript" src="js/Morejs/widgets.js"></script>
-        <script type="text/javascript" src="js/Morejs/blocks.js"></script>
-        <script type="text/javascript" src="js/Morejs/threads.js"></script>
-        <script type="text/javascript" src="js/Morejs/objects.js"></script>
-        <script type="text/javascript" src="js/Morejs/gui.js"></script>
-        <script type="text/javascript" src="js/Morejs/paint.js"></script>
-        <script type="text/javascript" src="js/Morejs/lists.js"></script>
-        <script type="text/javascript" src="js/Morejs/byob.js"></script>
-        <script type="text/javascript" src="js/Morejs/tables.js"></script>
-        <script type="text/javascript" src="js/Morejs/xml.js"></script>
-        <script type="text/javascript" src="js/Morejs/store.js"></script>
-        <script type="text/javascript" src="js/Morejs/locale.js"></script>
-        <script type="text/javascript" src="js/Morejs/cloud.js"></script>
-        <script type="text/javascript" src="js/Morejs/sha512.js"></script>
-        <script type="text/javascript" src="js/Morejs/ebrain-snap.js"></script>
-        <script type="text/javascript" src="js/Morejs/mirobot-snap.js"></script>
-        <script type="text/javascript" src="js/Morejs/FileSaver.min.js"></script>
-        <script type="text/javascript" src="js/Morejs/symbols.js?version=2019-06-27"></script>
-        <script type="text/javascript" src="js/Morejs/sketch.js?version=2019-06-27"></script>
-        <script type="text/javascript" src="js/Morejs/video.js?version=2019-06-27"></script>
-        <script type="text/javascript" src="js/Morejs/maps.js?version=2019-06-27"></script>
-        <script type="text/javascript">
-        
-        var evebrain;
-        var world;
-        var openclose = 0;
-
-        //Autoconnect! Can be annoying!
-        if (localStorage.getItem("IP") != null) {
-            window.location = '#m=' + localStorage.getItem("IP");
-        } else {
-            window.location = '#m=' + '192.168.4.1';
-        }
-
-        var eApp = new EveBrainApp(function(m) {
-            evebrain = m;
-            m.version(function(status, msg) {
-                if (Number(msg.msg) < 20150201 && !localStorage['_warning_done_']) {
-                    localStorage['_warning_done_'] = true;
-                    alert("You'll need to update your eBrain firmware to use the addon blocks (bump and line following) in this app, but the other blocks should still work fine.");
+    <head>
+        <title>Snap! 7 - dev - Build Your Own Blocks</title>
+        <link rel="icon" href="src/favicon.ico" type="image/x-icon">
+        <link rel="manifest" href="manifest.json">
+        <link rel="apple-touch-icon" href="img/snap-icon-152.png">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="white"/>
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="Snap!">
+        <meta name="msapplication-TileImage" content="img/snap-icon-144.png">
+        <meta name="msapplication-TileColor" content="#FFFFFF">
+        <script src="src/morphic.js?version=2021-07-09"></script>
+        <script src="src/symbols.js?version=2021-03-03"></script>
+        <script src="src/widgets.js?version=2021-07-21"></script>
+        <script src="src/blocks.js?version=2021-07-05"></script>
+        <script src="src/threads.js?version=2021-07-20"></script>
+        <script src="src/objects.js?version=2021-07-23"></script>
+        <script src="src/scenes.js?version=2021-07-21"></script>
+        <script src="src/gui.js?version=2021-08-06"></script>
+        <script src="src/paint.js?version=2021-07-05"></script>
+        <script src="src/lists.js?version=2021-07-19"></script>
+        <script src="src/byob.js?version=2021-08-03"></script>
+        <script src="src/tables.js?version=2021-05-07"></script>
+        <script src="src/sketch.js?version=2021-07-05"></script>
+        <script src="src/video.js?version=2019-06-27"></script>
+        <script src="src/maps.js?version=2021-06-15"></script>
+        <script src="src/extensions.js?version=2021-08-03"></script>
+        <script src="src/xml.js?version=2021-07-05"></script>
+        <script src="src/store.js?version=2021-08-01"></script>
+        <script src="src/locale.js?version=2021-07-12"></script>
+        <script src="src/cloud.js?version=2021-02-04"></script>
+        <script src="src/api.js?version=2021-07-05"></script>
+        <script src="src/sha512.js?version=2019-06-27"></script>
+        <script src="src/FileSaver.min.js?version=2019-06-27"></script>
+        <script src="RIAC/open-with.js"></script>
+        <script src="RIAC/helpers.js"></script>
+        <script>
+            var world;
+            window.onload = function () {
+                const worldReady = new Event('world-ready');
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.register('sw.js');
                 }
-            });
-        });
-
-
-        window.onload = function() {
-            IDE_Morph.prototype.reactToWorldResize = function(rect) {
-                if (this.isAutoFill) {
-                    rect.origin.y = document.getElementById('header').getBoundingClientRect().height;
-                    this.setPosition(rect.origin);
-                    this.setExtent(rect.extent());
-                }
-                if (this.filePicker) {
-                    document.body.removeChild(this.filePicker);
-                    this.filePicker = null;
-                }
+                world = new WorldMorph(document.getElementById('world'));
+                new IDE_Morph().openIn(world);
+                loop();
+                document.dispatchEvent(worldReady);
             };
-
-            world = new WorldMorph(document.getElementById('world'));
-
-            world.worldCanvas.focus();
-            var IDE = new IDE_Morph()
-            IDE.openIn(world);
-
-            eApp.initPersistence({
-                saveHandler: function(name) {
-                    IDE.setProjectName(name);
-                    return IDE.serializer.serialize(IDE.stage);
-                },
-                loadHandler: function(prog) {
-                    return IDE.rawOpenProjectString(prog);
-                },
-                clearHandler: function() {
-                    return IDE.newProject();
-                }
-            });
-
-            loop();
-        };
-
-        function loop() {
-            requestAnimationFrame(loop);
-            world.doOneCycle();
-        }
-        function displayContents(err, text) {
-            if (err) {
-                console.error(err);
-            } else {
-                alert(text);
+            function loop() {
+                requestAnimationFrame(loop);
+                world.doOneCycle();
             }
-        }
         </script>
-        <canvas id="world" tabindex="1" style="position: absolute;" />
-    </div>
-    <script type="text/javascript">
-    [].forEach.call(document.links, function(l) {
-        l.href = l.href + document.location.hash;
-    });
+        <script src="RIAC/electron-communications.js"></script>
+    </head>
+    <body style="margin: 0;">
+        <canvas id="world" tabindex="1" style="position: absolute;"></canvas>
+    </body>
+    <script>
+        SpriteMorph.prototype.customCategories.set("RIAC",new Color(216,45,45));
+        SpriteMorph.prototype.customCategories.set("eBrain",new Color(33,33,33));
+        window.addEventListener("load", afterLoaded,false);
+        function afterLoaded(){
+            world.children[0].flatDesign();
+            Process.prototype.enableJS = true;
+        }
     </script>
-    <script type="text/javascript" src="js/TOCSearch.js"></script>
-    <script src="app.js"></script> 
-</body>
-
 </html>

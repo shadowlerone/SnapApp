@@ -5,7 +5,9 @@
   "description": "A sample Apache Cordova application that responds to the deviceready event.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "electron-setup": "cordova platform remove electron & cordova platform add electron@2.0.0 & node utility.js electron",
+    "updateBlocks": "node utility.js --updateBlocks"
   },
   "keywords": [
     "ecosystem:cordova"
@@ -15,22 +17,14 @@
   "devDependencies": {
     "cordova-android": "^9.1.0",
     "cordova-browser": "^6.0.0",
-    "cordova-electron": "^1.1.1",
-    "cordova-file-association": "^1.0.0",
+    "cordova-electron": "^2.0.0",
     "cordova-plugin-device": "^2.0.3",
-    "cordova-plugin-openwith-ios": "^2.0.0",
-    "cordova-plugin-qrscanner": "^3.0.1",
-    "cordova-plugin-whitelist": "^1.3.5",
-    "cordova-windows": "^7.0.1"
+    "cordova-plugin-whitelist": "^1.3.5"
   },
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
-      "cordova-plugin-openwith-ios": {
-        "IOS_URL_SCHEME": "cordovaopenwithdemo"
-      },
-      "cordova-plugin-device": {},
-      "cordova-plugin-qrscanner": {}
+      "cordova-plugin-device": {}
     },
     "platforms": [
       "browser",
@@ -40,6 +34,7 @@
     ]
   },
   "dependencies": {
-    "cordova": "^10.0.0"
+    "better-logging": "^4.5.0",
+    "fs-extra": "^10.0.0"
   }
 }
