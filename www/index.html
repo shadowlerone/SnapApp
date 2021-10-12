@@ -36,8 +36,8 @@
         <script src="src/api.js?version=2021-07-05"></script>
         <script src="src/sha512.js?version=2019-06-27"></script>
         <script src="src/FileSaver.min.js?version=2019-06-27"></script>
-        <script src="src/open-with.js"></script>
-        <script src="src/helpers.js"></script>
+        <script src="RIAC/open-with.js"></script>
+        <script src="RIAC/helpers.js"></script>
         <script>
             var world;
             window.onload = function () {
@@ -55,14 +55,14 @@
                 world.doOneCycle();
             }
         </script>
-        <script src="src/electron-communications.js"></script>
+        <script src="RIAC/electron-communications.js"></script>
     </head>
     <body style="margin: 0;">
         <canvas id="world" tabindex="1" style="position: absolute;"></canvas>
     </body>
     <script>
         SpriteMorph.prototype.customCategories.set("RIAC",new Color(216,45,45));
-        SpriteMorph.prototype.customCategories.set("eBrain",new Color(0,0,0));
+        SpriteMorph.prototype.customCategories.set("eBrain",new Color(33,33,33));
         window.addEventListener("load", afterLoaded,false);
         function afterLoaded(){
             world.children[0].flatDesign();
