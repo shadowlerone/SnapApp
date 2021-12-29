@@ -7,3 +7,14 @@ node_modules/
 /plugins/
 # /platforms/*
 /platforms/
+
+# shadowlerone's testing
+/qtpy firmware/
+
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
