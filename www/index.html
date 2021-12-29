@@ -76,6 +76,23 @@
 </head>
 
 <body style="margin: 0;">
+    <div class="hidden" id="video">
+        <video></video>
+    </div>
+    <style>
+        .hidden {
+            display: none;
+        }
+        #video {
+            z-index: 10000000;
+            /* display: ; */
+            position: absolute;
+            top:0;
+            left:0;
+            height: 100vh;
+            width: 100vw;
+        }
+    </style>
     <canvas id="world" tabindex="1" style="position: absolute;"></canvas>
 </body>
 <script>
