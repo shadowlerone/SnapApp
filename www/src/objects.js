@@ -87,7 +87,7 @@ BlockVisibilityDialogMorph*/
 
 /*jshint esversion: 6*/
 
-modules.objects = '2021-December-13';
+modules.objects = '2021-December-20';
 
 var SpriteMorph;
 var StageMorph;
@@ -172,7 +172,9 @@ SpriteMorph.prototype.allCategories = function () {
 };
 
 SpriteMorph.prototype.blockColorFor = function (category) {
-    return this.blockColor[category] || this.customCategories.get(category);
+    return this.blockColor[category] ||
+        this.customCategories.get(category) ||
+        this.blockColor.other;
 };
 
 SpriteMorph.prototype.paletteColor = new Color(55, 55, 55);
@@ -6128,6 +6130,7 @@ SpriteMorph.prototype.setRotationCenter = function (absoluteCoordinate) {
     if (!this.costume) {
         throw new Error('setting the rotation center requires a costume');
     }
+    this.shadowAttribute('costumes');
     delta = absoluteCoordinate.subtract(
         new Point(this.xPosition(), this.yPosition())
     ).divideBy(this.scale).rotateBy(radians(90 - this.heading));
