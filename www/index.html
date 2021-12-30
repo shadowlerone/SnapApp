@@ -75,9 +75,24 @@
             padding: unset
         }
     </style>
+    <!-- Base Menu CSS -->
+    <link rel="stylesheet" type="text/css" href="RIAC/menu.css">
+    <!-- Platform Specific Menu Styling -->
+    <link rel="stylesheet" type="text/css" href="RIAC/menu_style.css">
 </head>
 
 <body style="margin: 0;">
+    <div id="menu-container" >
+        <div id="menu-header">
+            Robot In A Can Snap!
+        </div>
+        <div id="menu" onclick="closeMenu()">
+            <div class="button" onclick="testButton()">Button 1</div>
+            <div class="button" onclick="testButton()">Button 2</div>
+            <div class="button" onclick="testButton()">Button 3</div>
+            <div class="button" onclick="testButton()">Button 4</div>
+        </div>
+    </div>
     <canvas id="world" tabindex="1" style="position: absolute;"></canvas>
 </body>
 <script>
@@ -134,5 +149,10 @@
         // });
     }
 </script>
+
+<!-- App Menu Code -->
+
+<script src="RIAC/menu.js"></script>
+<script src="RIAC/buttons.js"></script>
 
 </html>

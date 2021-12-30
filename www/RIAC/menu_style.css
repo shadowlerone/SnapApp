@@ -1,0 +1,19 @@
+/* Aesthetic CSS in here. Nothing structural (see menu.css) */
+#menu-container {
+	background-color: rgba(0,0,0,0.8);
+}
+#menu-header {
+	background-color: navy;
+	color: white;
+}
+#menu{}
+
+.button {
+	border: 1px solid black;
+	background-color: rgba(255,255,255, 0.8);
+	transition: background-color 100ms;
+}
+
+.button:hover {
+	background-color: rgba(255,255,255, 1);
+}
