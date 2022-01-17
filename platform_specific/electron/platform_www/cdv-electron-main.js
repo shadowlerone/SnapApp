@@ -17,18 +17,19 @@
     under the License.
 */
 
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 require('better-logging')(console);
 console.logLevel = 4;
 const process = require("process");
+const https = require('https');
 
 // Module to control application life, browser window and tray.
 const {
     app,
     BrowserWindow,
     protocol,
-	ipcMain
+    ipcMain
 } = require('electron');
 
 app.on("open-file", (event, path) => {
@@ -45,7 +46,7 @@ let document;
 // if ()
 try {
     console.info("Attempting to read document.");
-    if(process.argv[1].endsWith(".xml")) {
+    if (process.argv[1].endsWith(".xml")) {
         console.info("Document successfully opened.");
         document = fs.readFileSync(process.argv[1]).toString();
     } else {
@@ -58,7 +59,7 @@ try {
 }
 if (document === null) {
     try {
-        
+
     } catch (err) {
         console.error(err)
     }
@@ -68,11 +69,12 @@ ipcMain.on('world-ready', (event, arg) => {
     console.info("World is ready.");
     if (document !== null) {
         console.info("Sending Document.");
-        event.reply("loadDocument",document);
+        event.reply("loadDocument", document);
     } else {
         console.info("Document is null, not sending document.");
     }
 })
+
 
 // Electron settings from .json file.
 const cdvElectronSettings = require('./cdv-electron-settings.json');
@@ -107,7 +109,7 @@ if (!isFileProtocol) {
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
-function createWindow () {
+function createWindow() {
     // Create the browser window.
     let appIcon;
     if (fs.existsSync(`${__dirname}/img/app.png`)) {
@@ -135,14 +137,14 @@ function createWindow () {
 
     // Emitted when the window is closed.
     mainWindow.on('closed', () => {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
+        // Dereference the window object, usually you would store windows
+        // in an array if your app supports multi windows, this is the time
+        // when you should delete the corresponding element.
         mainWindow = null;
     });
 }
 
-function configureProtocol () {
+function configureProtocol() {
     protocol.registerFileProtocol(scheme, (request, cb) => {
         const url = request.url.substr(basePath.length + 1);
         cb({ path: path.normalize(`${__dirname}/${url}`) });
@@ -167,8 +169,8 @@ app.on('ready', () => {
     }
 
     createWindow();
-	
-	// mainWindow.webContents.send('document', document);
+
+    // mainWindow.webContents.send('document', document);
 });
 
 // Quit when all windows are closed.

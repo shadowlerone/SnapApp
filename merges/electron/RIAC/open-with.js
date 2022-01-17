@@ -9,3 +9,6 @@ ipcRenderer.on('loadDocument', (event, arg) => {
 	try { loadFromString(arg); } catch (err) { console.error(err) }
 })
 
+ipcRenderer.on("error", (event, arg) => {
+	console.error(arg);
+})

@@ -39,8 +39,8 @@
     <script src="src/FileSaver.min.js?version=2019-06-27"></script>
 
     <!-- following two scripts added by Alexander Somma -->
-    <script src="src/onload.js"></script>
-    <script src="src/ecraft2learn.js"></script>
+    <!-- <script src="src/onload.js"></script> -->
+    <!-- <script src="src/ecraft2learn.js"></script> -->
     <!--<script src='https://cdn.statically.io/gh/WebReflection/circular-json/af2987de/build/circular-json.js'></script>-->
 
     <!-- App Specific Files -->
@@ -82,13 +82,14 @@
 </head>
 
 <body style="margin: 0;">
-    <div id="menu-container" >
+    <div class="menu-toggle" onclick="openMenu()">Menu</div>
+    <div id="menu-container">
         <div id="menu-header">
             Robot In A Can Snap!
         </div>
         <div id="menu" onclick="closeMenu()">
-            <div class="button" onclick="testButton()">Button 1</div>
-            <div class="button" onclick="testButton()">Button 2</div>
+            <div class="button" onclick="updateBlocks()">Update Blocks</div>
+            <a class="button" onclick="testButton()" href="https://guide.robotinacan.com/" target="_blank">Open Guidebook</a>
             <div class="button" onclick="testButton()">Button 3</div>
             <div class="button" onclick="testButton()">Button 4</div>
         </div>

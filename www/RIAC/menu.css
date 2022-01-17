@@ -1,15 +1,23 @@
 /* Structural CSS here. Limit Aesthetic (see menu_style.css) */
 
+body {
+	max-height: 100%;
+	max-width: 100%;
+	overflow: hidden;
+}
+
 #menu-container {
 	height: 100vh;
 	/* display:none; */
 
-	width: 0%;
+	/* width: 0%; */
+	width:100%;
+	transform: translateX(100%);
 	position: absolute;
 	z-index: 2;
-	
+	right: 0;
 	/* transition-property: width; */
-	transition: width 0.30s ease-in-out;
+	transition: transform 0.10s ease-in-out;
 }
 
 #menu-container, #menu-container > * {
@@ -19,24 +27,23 @@
 
 #menu-header {
 	width: 100%;
-	height: 5%;
+	/* height: 5%; */
 	text-align: center;
-
+	padding: 1rem;
 	font-size: 2em;
-
 }
 
 #menu-container.show {
 	/* display: unset; */
-	width: 100%;
-	
+	/* width: 100%; */
+	transform: translateX(0);
 }
 
 #menu {
 	position: relative;
 
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	flex-wrap: wrap;
 	justify-content: space-around;
 	align-items: center;
@@ -60,5 +67,15 @@
 	padding: 1rem;
 
 	z-index: 4;
+	cursor: pointer;
 }
 
+.menu-toggle {
+	width: 5%;
+	position: absolute;
+	right: 0;
+	top: 50%;
+	z-index: 2;
+	background-color: orange;
+	height: 10%;
+}
