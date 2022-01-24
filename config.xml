@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.cordova.hellocordova" version="0.1.0"
+<widget id="com.robotinacan.RobotinacanSnap" version="0.1.0"
     xmlns="http://www.w3.org/ns/widgets"
     xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>RobotinacanSnap</name>
     <description>
         snap application to help control and connect to your Robot.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="dev.shadowlerone@gmail.com" href="https://robotinacan.com/">
+        Robot in a Can
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -20,6 +20,10 @@
     <icon src="res/favicon-256x256.png" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <!-- <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
+            <application android:usesCleartextTraffic="true" />
+        </edit-config> -->
+        <hook type="before_build" src="./utility.js"/>
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />

@@ -28,9 +28,9 @@
     },
     "platforms": [
       "browser",
-      "android",
       "electron",
-      "windows"
+      "windows",
+      "android"
     ]
   },
   "dependencies": {
