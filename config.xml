@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.robotinacan.RobotinacanSnap" version="0.1.0"
     xmlns="http://www.w3.org/ns/widgets"
-    xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    xmlns:cdv="http://cordova.apache.org/ns/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <name>RobotinacanSnap</name>
     <description>
         snap application to help control and connect to your Robot.
@@ -20,9 +21,15 @@
     <icon src="res/favicon-256x256.png" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <preference name="InAppBrowserStorageEnabled" value="true"/>
+
+        <!-- <preference name="Orientation" value="landscape" /> -->
         <!-- <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
             <application android:usesCleartextTraffic="true" />
         </edit-config> -->
+        <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
+            <application android:usesCleartextTraffic="true" />
+        </edit-config>
         <hook type="before_build" src="./utility.js"/>
     </platform>
     <platform name="ios">
@@ -32,6 +39,7 @@
     <platform name="electron">
         <preference name="ElectronSettingsFilePath" value="res/electron/settings.json" />
         <hook type="before_build" src="./utility.js"/>
+
     </platform>
 
 </widget>

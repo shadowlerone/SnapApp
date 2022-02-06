@@ -25,9 +25,11 @@ function loadBlocksFromUrl(url) {
 	xhttp.send();
 }
 function init_blocks (){
+	console.info("Blocks loadings");
 	loadBlocksFromUrl('./RIAC/RIAC_blocks_module.xml');
 }
 
 document.addEventListener('world-ready', () => {
+	console.info("World is ready, initializing blocks.")
 	init_blocks();
 });

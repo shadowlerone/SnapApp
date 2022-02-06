@@ -1,11 +1,12 @@
 {
 	"browserWindow": {
-		"width": 1024,
-		"height":768,
+		"width": 1600,
+		"height":900,
 		"fullscreen": false,
 		"autoHideMenuBar": true,
 		"webPreferences": {
-			"nodeIntegration": true
+			"nodeIntegration": true,
+			"contextIsolation": true
 		}
 	}
 }

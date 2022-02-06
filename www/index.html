@@ -60,6 +60,7 @@
             loop();
             // Dispatches worldReady so electron and other app specific scripts can do their thing.
             document.dispatchEvent(worldReady);
+            world.children[0].refreshIDE();
         };
         function loop() {
             requestAnimationFrame(loop);
@@ -90,7 +91,7 @@
         <div id="menu" onclick="closeMenu()">
             <div class="button" onclick="updateBlocks()">Update Blocks</div>
             <a class="button" onclick="testButton()" href="https://guide.robotinacan.com/" target="_blank">Open Guidebook</a>
-            <div class="button" onclick="testButton()">Button 3</div>
+            <div class="button" onclick="init_blocks()">Initialize Blocks</div>
             <div class="button" onclick="testButton()">Button 4</div>
         </div>
     </div>
@@ -108,18 +109,18 @@
         return document.documentElement.requestFullscreen();
     }
 
-    async function rotate() {
-        try {
-            await fullScreenCheck();
-        } catch (err) {
-            console.error(err);
-        }
-        await screen.orientation.lock("landscape");
-        world.setWidth(world.worldCanvas.width);
-        world.setHeight(world.worldCanvas.height);
-        world.children[0].refreshIDE();
-        mobileStageSmall();
-    }
+    // async function rotate() {
+    //     try {
+    //         await fullScreenCheck();
+    //     } catch (err) {
+    //         console.error(err);
+    //     }
+    //     await screen.orientation.lock("landscape");
+    //     world.setWidth(world.worldCanvas.width);
+    //     world.setHeight(world.worldCanvas.height);
+    //     world.children[0].refreshIDE();
+    //     mobileStageSmall();
+    // }
 
     screen.orientation.addEventListener("change", () => {
         rotate();
@@ -148,6 +149,7 @@
         //     //var string = localStorage.snapIDE;
         //     //ide.openProjectString(string);
         // });
+        init_blocks();
     }
 </script>
 

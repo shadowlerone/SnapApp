@@ -1,78 +1,79 @@
 /*
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
+	Licensed to the Apache Software Foundation (ASF) under one
+	or more contributor license agreements.  See the NOTICE file
+	distributed with this work for additional information
+	regarding copyright ownership.  The ASF licenses this file
+	to you under the Apache License, Version 2.0 (the
+	"License"); you may not use this file except in compliance
+	with the License.  You may obtain a copy of the License at
 
-        http://www.apache.org/licenses/LICENSE-2.0
+		http://www.apache.org/licenses/LICENSE-2.0
 
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
+	Unless required by applicable law or agreed to in writing,
+	software distributed under the License is distributed on an
+	"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+	KIND, either express or implied.  See the License for the
+	specific language governing permissions and limitations
+	under the License.
 */
 
-const fs = require('fs-extra');
+// const fs = require('fs-extra');
+const fs = require('fs')
 const path = require('path');
-require('better-logging')(console);
-console.logLevel = 4;
+// require('better-logging')(console);
+// console.logLevel = 4;
 const process = require("process");
-const https = require('https');
-
+// const https = require('https');
+const { cordova } = require('./package.json');
 // Module to control application life, browser window and tray.
 const {
-    app,
-    BrowserWindow,
-    protocol,
-    ipcMain
+	app,
+	BrowserWindow,
+	protocol,
+	ipcMain
 } = require('electron');
 
 app.on("open-file", (event, path) => {
-    console.info("File opening.");
-    if (process.argv
-        .filter(
-            a => a.endsWith(".xml")
-        ).length < 1) {
+	console.info("File opening.");
+	if (process.argv
+		.filter(
+			a => a.endsWith(".xml")
+		).length < 1) {
 
-    }
+	}
 })
 
 let document;
 // if ()
 try {
-    console.info("Attempting to read document.");
-    if (process.argv[1].endsWith(".xml")) {
-        console.info("Document successfully opened.");
-        document = fs.readFileSync(process.argv[1]).toString();
-    } else {
-        console.error("Document isn't a valid file type.");
-        document = null;
-    }
+	console.info("Attempting to read document.");
+	if (process.argv[1].endsWith(".xml")) {
+		console.info("Document successfully opened.");
+		document = fs.readFileSync(process.argv[1]).toString();
+	} else {
+		console.error("Document isn't a valid file type.");
+		document = null;
+	}
 } catch {
-    console.error("An error occured while trying to open the document.");
-    document = null;
+	console.error("An error occured while trying to open the document.");
+	document = null;
 }
 if (document === null) {
-    try {
+	try {
 
-    } catch (err) {
-        console.error(err)
-    }
+	} catch (err) {
+		console.error(err)
+	}
 }
 
 ipcMain.on('world-ready', (event, arg) => {
-    console.info("World is ready.");
-    if (document !== null) {
-        console.info("Sending Document.");
-        event.reply("loadDocument", document);
-    } else {
-        console.info("Document is null, not sending document.");
-    }
+	console.info("World is ready.");
+	if (document !== null) {
+		console.info("Sending Document.");
+		event.reply("loadDocument", document);
+	} else {
+		console.info("Document is null, not sending document.");
+	}
 })
 
 
@@ -81,8 +82,8 @@ const cdvElectronSettings = require('./cdv-electron-settings.json');
 const reservedScheme = require('./cdv-reserved-scheme.json');
 
 const devTools = cdvElectronSettings.browserWindow.webPreferences.devTools
-    ? require('electron-devtools-installer')
-    : false;
+	? require('electron-devtools-installer')
+	: false;
 
 const scheme = cdvElectronSettings.scheme;
 const hostname = cdvElectronSettings.hostname;
@@ -100,9 +101,9 @@ const basePath = (() => isFileProtocol ? `file://${__dirname}` : `${scheme}://${
 if (reservedScheme.includes(scheme)) throw new Error(`The scheme "${scheme}" can not be registered. Please use a non-reserved scheme.`);
 
 if (!isFileProtocol) {
-    protocol.registerSchemesAsPrivileged([
-        { scheme, privileges: { standard: true, secure: true } }
-    ]);
+	protocol.registerSchemesAsPrivileged([
+		{ scheme, privileges: { standard: true, secure: true } }
+	]);
 }
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -110,120 +111,149 @@ if (!isFileProtocol) {
 let mainWindow;
 
 function createWindow() {
-    // Create the browser window.
-    let appIcon;
-    if (fs.existsSync(`${__dirname}/img/app.png`)) {
-        appIcon = `${__dirname}/img/app.png`;
-    } else if (fs.existsSync(`${__dirname}/img/icon.png`)) {
-        appIcon = `${__dirname}/img/icon.png`;
-    } else {
-        appIcon = `${__dirname}/img/logo.png`;
-    }
+	// Create the browser window.
+	let appIcon;
+	if (fs.existsSync(`${__dirname}/img/app.png`)) {
+		appIcon = `${__dirname}/img/app.png`;
+	} else if (fs.existsSync(`${__dirname}/img/icon.png`)) {
+		appIcon = `${__dirname}/img/icon.png`;
+	} else {
+		appIcon = `${__dirname}/img/logo.png`;
+	}
 
-    const browserWindowOpts = Object.assign({}, cdvElectronSettings.browserWindow, { icon: appIcon });
-    mainWindow = new BrowserWindow(browserWindowOpts);
+	const browserWindowOpts = Object.assign({}, cdvElectronSettings.browserWindow, { icon: appIcon });
+	browserWindowOpts.webPreferences.preload = path.join(app.getAppPath(), 'cdv-electron-preload.js');
+	browserWindowOpts.webPreferences.contextIsolation = false;
+	mainWindow = new BrowserWindow(browserWindowOpts);
 
+	mainWindow.webContents.session.on('select-serial-port', (event, portList, webContents, callback) => {
+		event.preventDefault()
+		if (portList && portList.length > 0) {
+			callback(portList[0].portId)
+		} else {
+			callback('') //Could not find any matching devices
+		}
+	})
 
-    mainWindow.webContents.session.on('select-serial-port', (event, portList, webContents, callback) => {
-        event.preventDefault()
-        if (portList && portList.length > 0) {
-            callback(portList[0].portId)
-        } else {
-            callback('') //Could not find any matching devices
-        }
-    })
+	mainWindow.webContents.session.on('serial-port-added', (event, port) => {
+		console.log('serial-port-added FIRED WITH', port)
+	})
 
-    mainWindow.webContents.session.on('serial-port-added', (event, port) => {
-        console.log('serial-port-added FIRED WITH', port)
-    })
+	mainWindow.webContents.session.on('serial-port-removed', (event, port) => {
+		console.log('serial-port-removed FIRED WITH', port)
+	})
+	try {
+		mainWindow.webContents.session.setPermissionCheckHandler((webContents, permission, requestingOrigin, details) => {
+			if (permission === 'serial' && details.securityOrigin === 'file:///') {
+				return true
+			}
+		})
+		console.info("Successfully did the 1st setDevice Permission.")
+	} catch (error) {
+		if (error instanceof TypeError) {
+			console.error("Type Error at setPermissionCheckHandler");
+			console.error(typeof mainWindow.webContents.session.setPermissionCheckHandler)
+		}
+		console.error(error)
+	}
+	
+	try {
+		mainWindow.webContents.session.setDevicePermissionHandler((details) => {
+			if (details.deviceType === 'serial' && details.origin === 'file://') {
+				return true
+			}
+		})
+		console.info("Successfully did the 2nd setDevice Permission.")
+	} catch (error) {
+		if (error instanceof TypeError) {
+			console.error("Type Error at setPermissionCheckHandler");
+			console.error(typeof mainWindow.webContents.session.setDevicePermissionHandler)
+		}
+		console.error(error)
+	}
+	
+	// Load a local HTML file or a remote URL.
+	const cdvUrl = cdvElectronSettings.browserWindowInstance.loadURL.url;
+	const loadUrl = cdvUrl.includes('://') ? cdvUrl : `${basePath}/${cdvUrl}`;
+	const loadUrlOpts = Object.assign({}, cdvElectronSettings.browserWindowInstance.loadURL.options);
 
-    mainWindow.webContents.session.on('serial-port-removed', (event, port) => {
-        console.log('serial-port-removed FIRED WITH', port)
-    })
+	mainWindow.loadURL(loadUrl, loadUrlOpts);
 
-    mainWindow.webContents.session.setPermissionCheckHandler((webContents, permission, requestingOrigin, details) => {
-        if (permission === 'serial' && details.securityOrigin === 'file:///') {
-            return true
-        }
-    })
+	// Open the DevTools.
+	if (cdvElectronSettings.browserWindow.webPreferences.devTools) {
+		mainWindow.webContents.openDevTools();
+	}
 
-    mainWindow.webContents.session.setDevicePermissionHandler((details) => {
-        if (details.deviceType === 'serial' && details.origin === 'file://') {
-            return true
-        }
-    })
-    // Load a local HTML file or a remote URL.
-    const cdvUrl = cdvElectronSettings.browserWindowInstance.loadURL.url;
-    const loadUrl = cdvUrl.includes('://') ? cdvUrl : `${basePath}/${cdvUrl}`;
-    const loadUrlOpts = Object.assign({}, cdvElectronSettings.browserWindowInstance.loadURL.options);
-
-    mainWindow.loadURL(loadUrl, loadUrlOpts);
-
-    // Open the DevTools.
-    if (cdvElectronSettings.browserWindow.webPreferences.devTools) {
-        mainWindow.webContents.openDevTools();
-    }
-
-    // Emitted when the window is closed.
-    mainWindow.on('closed', () => {
-        // Dereference the window object, usually you would store windows
-        // in an array if your app supports multi windows, this is the time
-        // when you should delete the corresponding element.
-        mainWindow = null;
-    });
+	// Emitted when the window is closed.
+	mainWindow.on('closed', () => {
+		// Dereference the window object, usually you would store windows
+		// in an array if your app supports multi windows, this is the time
+		// when you should delete the corresponding element.
+		mainWindow = null;
+	});
 }
 
 function configureProtocol() {
-    protocol.registerFileProtocol(scheme, (request, cb) => {
-        const url = request.url.substr(basePath.length + 1);
-        cb({ path: path.normalize(`${__dirname}/${url}`) });
-    });
+	protocol.registerFileProtocol(scheme, (request, cb) => {
+		const url = request.url.substr(basePath.length + 1);
+		cb({ path: path.normalize(`${__dirname}/${url}`) });
+	});
 
-    protocol.interceptFileProtocol('file', (_, cb) => { cb(null); });
+	protocol.interceptFileProtocol('file', (_, cb) => { cb(null); });
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
-    if (!isFileProtocol) {
-        configureProtocol();
-    }
+	if (!isFileProtocol) {
+		configureProtocol();
+	}
 
-    if (devTools && cdvElectronSettings.devToolsExtension) {
-        const extensions = cdvElectronSettings.devToolsExtension.map(id => devTools[id] || id);
-        devTools.default(extensions) // default = install extension
-            .then((name) => console.log(`Added Extension:  ${name}`))
-            .catch((err) => console.log('An error occurred: ', err));
-    }
+	if (devTools && cdvElectronSettings.devToolsExtension) {
+		const extensions = cdvElectronSettings.devToolsExtension.map(id => devTools[id] || id);
+		devTools.default(extensions) // default = install extension
+			.then((name) => console.log(`Added Extension:  ${name}`))
+			.catch((err) => console.log('An error occurred: ', err));
+	}
 
-    createWindow();
-
-    // mainWindow.webContents.send('document', document);
+	createWindow();
 });
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
-    // On OS X it is common for applications and their menu bar
-    // to stay active until the user quits explicitly with Cmd + Q
-    console.info("App will close unless platform is darwin.")
-    console.info("Platform is:", process.platform)
-    if (process.platform !== 'darwin') {
-        console.info("App is now closing.");
-        app.quit();
-    }
+	// On OS X it is common for applications and their menu bar
+	// to stay active until the user quits explicitly with Cmd + Q
+	console.info("App will close unless platform is darwin.")
+	console.info("Platform is:", process.platform)
+	if (process.platform !== 'darwin') {
+		console.info("App is now closing.");
+		app.quit();
+	}
 });
 
 app.on('activate', () => {
-    // On OS X it's common to re-create a window in the app when the
-    // dock icon is clicked and there are no other windows open.
-    if (mainWindow === null) {
-        if (!isFileProtocol) {
-            configureProtocol();
-        }
+	// On OS X it's common to re-create a window in the app when the
+	// dock icon is clicked and there are no other windows open.
+	if (mainWindow === null) {
+		if (!isFileProtocol) {
+			configureProtocol();
+		}
 
-        createWindow();
-    }
+		createWindow();
+	}
+});
+
+ipcMain.handle('cdv-plugin-exec', async (_, serviceName, action, ...args) => {
+	if (cordova && cordova.services && cordova.services[serviceName]) {
+		const plugin = require(cordova.services[serviceName]);
+
+		return plugin[action]
+			? plugin[action](args)
+			: Promise.reject(new Error(`The action "${action}" for the requested plugin service "${serviceName}" does not exist.`));
+	} else {
+		return Promise.reject(new Error(`The requested plugin service "${serviceName}" does not exist have native support.`));
+	}
 });
 
 // In this file you can include the rest of your app's specific main process
