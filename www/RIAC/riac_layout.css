@@ -1,0 +1,12 @@
+#menu-bar {
+	height: 5vh;
+	display: flex;
+}
+#world-wrapper {
+	max-height: 80vh;
+}
+
+#world-wrapper > #world { 
+	position: relative !important;
+	height: 100% !important;
+}

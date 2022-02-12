@@ -1,14 +1,14 @@
 /* Aesthetic CSS in here. Nothing structural (see menu.css) */
-#menu-container {
+.menu-container {
 	background-color: rgba(0,0,0,0.8);
 }
-#menu-header {
+.menu-header {
 	background-color: navy;
 	color: white;
 }
-#menu{}
+.menu{}
 
-#menu-container * {
+.menu-container * {
 	font-size: 2rem;
 	font-family: Arial, Helvetica, sans-serif
 }

@@ -80,22 +80,41 @@
     <link rel="stylesheet" type="text/css" href="RIAC/menu.css">
     <!-- Platform Specific Menu Styling -->
     <link rel="stylesheet" type="text/css" href="RIAC/menu_style.css">
+    <link rel="stylesheet" type="text/css" href="RIAC/riac_layout.css">
 </head>
 
 <body style="margin: 0;">
-    <div class="menu-toggle" onclick="openMenu()">Menu</div>
-    <div id="menu-container">
-        <div id="menu-header">
-            Robot In A Can Snap!
+
+    
+    <div id="main-menu-container" class="menu-container">
+        <div class="menu-header">
+            Robot In A Can Snap! - Main Menu
         </div>
-        <div id="menu" onclick="closeMenu()">
+        <div id="main-menu" class="menu">
             <div class="button" onclick="updateBlocks()">Update Blocks</div>
             <a class="button" onclick="testButton()" href="https://guide.robotinacan.com/" target="_blank">Open Guidebook</a>
             <div class="button" onclick="init_blocks()">Initialize Blocks</div>
-            <div class="button" onclick="testButton()">Button 4</div>
+            <div class="button menu-toggle" data-menu-target="project">Button 4</div>
         </div>
     </div>
+    <div id="project-menu-container" class="menu-container">
+        <div class="menu-header">
+            Robot In A Can Snap! - Projects
+        </div>
+        <div id="project-menu" class="menu" data-parent-menu="main">
+            <div class="button">Button 4</div>
+            <div class="button">Button 4</div>
+            <div class="button">Button 4</div>
+            <div class="button">Button 4</div>
+        </div>
+    </div>
+    <div id="menu-bar">
+        <div class="menu-toggle" data-menu-target="main">Menu</div>
+    </div>
+    <div id="world-wrapper" >
     <canvas id="world" tabindex="1" style="position: absolute;"></canvas>
+    </div>
+
 </body>
 <script>
     SpriteMorph.prototype.customCategories.set("RIAC", new Color(216, 45, 45));
