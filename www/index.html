@@ -94,7 +94,7 @@
             <div class="button" onclick="updateBlocks()">Update Blocks</div>
             <a class="button" onclick="testButton()" href="https://guide.robotinacan.com/" target="_blank">Open Guidebook</a>
             <div class="button" onclick="init_blocks()">Initialize Blocks</div>
-            <div class="button menu-toggle" data-menu-target="project">Button 4</div>
+            <div class="button menu-toggle" data-menu-target="local-project">Project Samples</div>
         </div>
     </div>
     <div id="project-menu-container" class="menu-container">
@@ -106,6 +106,13 @@
             <div class="button">Button 4</div>
             <div class="button">Button 4</div>
             <div class="button">Button 4</div>
+        </div>
+    </div>
+    <div id="local-project-menu-container" class="menu-container">
+        <div class="menu-header">
+            Robot In A Can Snap! - Projects
+        </div>
+        <div id="project-menu" class="menu dynamic-menu" data-parent-menu="main" data-list-url="./projects/projects.json">
         </div>
     </div>
     <div id="menu-bar">
@@ -156,7 +163,7 @@
         var ide = world.children[0];
         Process.prototype.enableJS = true;
         ide.flatDesign();
-        ide.setBlocksScale(1.2);
+        ide.setBlocksScale(2);
         ide.setPaletteWidth(235);
 
         // Removed for the app. 

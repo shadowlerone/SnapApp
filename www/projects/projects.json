@@ -1,0 +1,20 @@
+{
+	"projects": [
+		{
+			"name": "asteroidz",
+			"filepath":"./projects/asteroidz.xml"
+		},
+		{
+			"name": "Listen for keywords",
+			"filepath":"./projects/Listen for keywords.xml"
+		}, 
+		{
+			"name": "Speak and Listen",
+			"filepath":"./projects/Speak and Listen.xml"
+		},
+		{
+			"name": "Virus Clicker Nov 25 2021",
+			"filepath":"./projects/Virus Clicker Nov 25 2021.xml"
+		}
+	]
+}
